@@ -9,7 +9,7 @@
 	<title>Document</title>
 </head>
 
-<body id='page'>
+<body>
 	<div class='mt-4 p-5 bg-secondary text-body rounded'>	
 		<div class='container-fluid'>
 			<nav class='navbar navbar-default'>
