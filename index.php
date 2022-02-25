@@ -6,7 +6,12 @@
     <meta name="description" content="">
     <title>Kitten Factory</title>
     <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- javascripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/script.js"></script>
 
     <style>
       .bd-placeholder-img {
@@ -75,6 +80,7 @@
   </section>
 
   <div class="album py-5 bg-light">
+  <div class="wrapper">
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -85,10 +91,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -100,10 +106,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -115,10 +121,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -131,10 +137,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -146,10 +152,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -161,10 +167,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -177,10 +183,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -192,10 +198,10 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
@@ -207,17 +213,17 @@
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
         </div>
     </div>
   </div>
-
+  </div>
 </main>
 
 <footer class="text-muted py-5">
@@ -228,10 +234,5 @@
     <p class="mb-1">Kitten Factory &copy;</p>
   </div>
 </footer>
-
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-
-      
   </body>
 </html>
