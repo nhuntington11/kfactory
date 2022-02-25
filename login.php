@@ -4,14 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Kitten Factory</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
-
-    
-
+    <title>Kitten Factory - Login</title>
     <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -52,6 +45,9 @@
 			</li>
 			<li class="nav-item">
 			  <a class="nav-link" href="add-user.php">Sign Up</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="payment.php">Payment</a>
 			</li>
 		  </ul>
 		  <form class="d-flex">
@@ -107,7 +103,7 @@
 				<p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
 			  </div>
 
-			  <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="#!" role="button">
+			  <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="add-user.php" role="button">
 				<i class="fab fa-twitter me-2"></i>Sign Up</a>
 
 			</form>

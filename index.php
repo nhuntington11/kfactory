@@ -4,14 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
     <title>Kitten Factory</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
-
-    
-
     <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -52,6 +45,9 @@
 			</li>
 			<li class="nav-item">
 			  <a class="nav-link" href="add-user.php">Sign Up</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="payment.php">Payment</a>
 			</li>
 		  </ul>
 		  <form class="d-flex">
