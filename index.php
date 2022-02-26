@@ -42,42 +42,25 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="#">Home</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="login.php">Log In</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="add-user.php">Sign Up</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="payment.php">Payment</a>
-			</li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Log In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="add-user.php">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="admin.php">Admininstrator</a>
+        </li>
 		  </ul>
-		  <form class="d-flex">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">Search</button>
-		  </form>
 		</div>
 	  </div>
 	</nav>
 </header>
 
 <main>
-
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">!!SALE SALE SALE SALE!!</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
-      </div>
-    </div>
-  </section>
 
   <div class="album py-5 bg-light">
   <div class="wrapper">
@@ -86,13 +69,12 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic1.jpeg">
+            <img class="bd-placeholder-img card-img-top" src="img/atomic.png">
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                  <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
                 </div>
                 <small class="text-muted">$100</small>
               </div>
@@ -101,13 +83,12 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic2.jpeg">
+            <img class="bd-placeholder-img card-img-top" src="img/dps.png">
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                  <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
                 </div>
                 <small class="text-muted">$100</small>
               </div>
@@ -116,13 +97,12 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic3.jpeg">
+            <img class="bd-placeholder-img card-img-top" src="img/kastle.png">
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                  <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
                 </div>
                 <small class="text-muted">$100</small>
               </div>
@@ -132,13 +112,12 @@
 
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic2.jpeg">
+            <img class="bd-placeholder-img card-img-top" src="img/salomon.png">
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                  <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
                 </div>
                 <small class="text-muted">$100</small>
               </div>
@@ -147,80 +126,19 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic4.jpeg">
+            <img class="bd-placeholder-img card-img-top" src="img/volkl.png">
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                  <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
                 </div>
                 <small class="text-muted">$100</small>
               </div>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic1.jpeg">
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                </div>
-                <small class="text-muted">$100</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic4.jpeg">
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                </div>
-                <small class="text-muted">$100</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic3.jpeg">
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                </div>
-                <small class="text-muted">$100</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="img/pic2.jpeg">
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                </div>
-                <small class="text-muted">$100</small>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
   </div>

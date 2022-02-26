@@ -38,22 +38,9 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="#">Home</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="login.php">Log In</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="add-user.php">Sign Up</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="payment.php">Payment</a>
+			  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
 			</li>
 		  </ul>
-		  <form class="d-flex">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">Search</button>
-		  </form>
 		</div>
 	  </div>
 	</nav>
@@ -68,7 +55,7 @@
 			<img src="img/login.svg" class="img-fluid" alt="sign up page">
 		  </div>
 		  <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-			<form>
+			<form action="index.php">
 			  <div class="form-row">
 			    <div class="row g-3">
 				  <div class="col">

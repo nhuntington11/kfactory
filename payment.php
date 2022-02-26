@@ -38,22 +38,9 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="#">Home</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="login.php">Log In</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="add-user.php">Sign Up</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="payment.php">Payment</a>
+			  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
 			</li>
 		  </ul>
-		  <form class="d-flex">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">Search</button>
-		  </form>
 		</div>
 	  </div>
 	</nav>
@@ -65,7 +52,7 @@
 	<section class="vh-100">
 	<div class="container py-5 h-100">
 	Cart contents goes here
-		<form class="row g-3">
+		<form class="row g-3" action="index.php">
 		  <div class="col-md-6">
 			<label for="inputEmail4" class="form-label">Email</label>
 			<input type="email" class="form-control" id="inputEmail4" placeholder="john.doe@gmail.com" >

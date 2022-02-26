@@ -38,22 +38,9 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="#">Home</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="login.php">Log In</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="add-user.php">Sign Up</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="payment.php">Payment</a>
+			  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
 			</li>
 		  </ul>
-		  <form class="d-flex">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">Search</button>
-		  </form>
 		</div>
 	  </div>
 	</nav>
@@ -81,8 +68,7 @@
 				<label class="form-label" for="form1Example23">Password</label>
 			  </div>
 
-			  <div class="d-flex justify-content-around align-items-center mb-4">
-				<!-- Checkbox -->
+			  <!-- <div class="d-flex justify-content-around align-items-center mb-4">
 				<div class="form-check">
 				  <input
 					class="form-check-input"
@@ -94,10 +80,11 @@
 				  <label class="form-check-label" for="rememberme"> Remember me </label>
 				</div>
 				<a href="#!">Forgot password?</a>
-			  </div>
+			  </div> -->
 
 			  <!-- Submit button -->
-			  <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+			  <!-- <a href="index.php"><button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button></a> -->
+			  <a class="btn btn-primary btn-lg btn-block" href="index.php" role="button">Log In</a>
 
 			  <div class="divider d-flex align-items-center my-4">
 				<p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
