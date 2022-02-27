@@ -38,7 +38,7 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+			  <a class="nav-link" aria-current="page" href="index.php">Home</a>
 			</li>
 		  </ul>
 		</div>
@@ -99,14 +99,6 @@
 				<div class="form-group col-md-2">
 				  <label for="inputZip">Zip</label>
 				  <input type="text" class="form-control" id="inputZip">
-				</div>
-			  </div>
-			  <div class="form-group">
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" id="gridCheck">
-				  <label class="form-check-label" for="gridCheck">
-					Check me out
-				  </label>
 				</div>
 			  </div>
 			  <button type="submit" class="btn btn-primary">Sign Up</button>

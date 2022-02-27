@@ -38,7 +38,7 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+			  <a class="nav-link" aria-current="page" href="index.php">Home</a>
 			</li>
 		  </ul>
 		</div>
@@ -56,10 +56,6 @@
 		  <div class="col-md-6">
 			<label for="inputEmail4" class="form-label">Email</label>
 			<input type="email" class="form-control" id="inputEmail4" placeholder="john.doe@gmail.com" >
-		  </div>
-		  <div class="col-md-6">
-			<label for="inputPassword4" class="form-label">Password</label>
-			<input type="password" class="form-control" id="inputPassword4">
 		  </div>
 		  <div class="col-12">
 			<label for="inputAddress" class="form-label">Address</label>
@@ -88,7 +84,7 @@
 			<button type="submit" class="btn btn-primary">Submit Order</button>
 		  </div>
 		   <div class="col-12">
-			<button type="submit" class="btn btn-secondary">Cancel</button>
+			<a role="button" class="btn btn-secondary" href="index.php">Cancel</a>
 		  </div>
 		</form>
     </section>
