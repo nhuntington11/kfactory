@@ -6,12 +6,8 @@
     <meta name="description" content="">
     <title>Kitten Factory</title>
     <!-- Bootstrap core CSS -->
-	<!-- <link href="css/style.css" rel="stylesheet"> -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- javascripts -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/script.js"></script>
+	  <!-- <link href="css/style.css" rel="stylesheet"> -->
+	  <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {

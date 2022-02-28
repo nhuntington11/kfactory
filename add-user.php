@@ -116,6 +116,5 @@
 		<p class="mb-1">Kitten Factory &copy;</p>
 	</div>
 	</footer>
-	<script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
