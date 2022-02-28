@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <title>Kitten Factory - Returns</title>
     <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -22,10 +22,9 @@
           font-size: 3.5rem;
         }
       }
-    </style>
-
-    
+    </style>  
   </head>
+  
 	<body>
 		<header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,93 +48,106 @@
         </header>
 		
 		<div class="container">
-				<div class="row">
-					<div class="col">
-						<h3>Returns</h3>
-					</div>
+			<div class="row">
+				<div class="col">
+					<h3>Returns</h3>
 				</div>
-				<div class="row mt-2 mb-2 border border-danger">
-					<div class="col p-2">
-						<div class="row">
+			</div>
+			<div class="row mt-2 mb-2 border border-danger">
+				<div class="col p-2">
+					<div class="row">
+						<div class="col-4">
+							<p>Order Date: 2/02/2022</p>
+						</div>
+						<div class="col-4">
+							<p>Product: Atomic Skis</p>
+						</div>
+						<div class="col-4">
+							<p>Customer: Nick Huntington</p>
+						</div>
+						<div class ="row">
 							<div class="col-4">
-								<p>Order Date: 2/02/2022</p>
+								<p>Date Returned: 2/26/22</p>
 							</div>
 							<div class="col-4">
-								<p>Product: Atomic Skis</p>
+								<p>Order Number: 1</p>
 							</div>
-							<div class="col-4">
-								<p>Shipped To: Nick Huntington</p>
-							</div>
-							<div class ="row">
+							<div class="col">
 								<form action="order-history.php">
 									<input type="hidden" name="orderid" value="1">
 									<input type="submit" value="Order History" class="btn btn-primary btn-lg">
 								</form>
-									<form action="return.php">
-										<input type="hidden" name="returned" value="1">
-										<input type="submit" value="Return?" class="btn btn-secondary btn-lg">
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row mt-2 mb-2 border border-danger">
-					<div class="col p-2">
-						<div class="row">
+				</div>
+			</div>
+			<div class="row mt-2 mb-2 border border-danger">
+				<div class="col p-2">
+					<div class="row">
+						<div class="col-4">
+							<p>Order Date: 12/28/2021</p>
+						</div>
+						<div class="col-4">
+							<p>Product: DPS Skis</p>
+						</div>
+						<div class="col-4">
+							<p>Shipped To: Claire Simmons</p>
+						</div>
+						<div class ="row">
 							<div class="col-4">
-								<p>Order Date: 12/28/2021</p>
+								<p>Date Returned: 2/27/22</p>
 							</div>
 							<div class="col-4">
-								<p>Product: DPS Skis</p>
+								<p>Order Number: 2</p>
 							</div>
-							<div class="col-4">
-								<p>Shipped To: Claire Simmons</p>
-							</div>
-							<div class ="row">
+							<div class="col">
 								<form action="order-history.php">
 									<input type="hidden" name="orderid" value="2">
 									<input type="submit" value="Order History" class="btn btn-primary btn-lg">
 								</form>
-									<form action="return.php">
-										<input type="hidden" name="returned" value="2">
-										<input type="submit" value="Return?" class="btn btn-secondary btn-lg">
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row mt-2 mb-2 border border-danger">
-					<div class="col p-2">
-						<div class="row">
+				</div>
+			</div>
+			<div class="row mt-2 mb-2 border border-danger">
+				<div class="col p-2">
+					<div class="row">
+						<div class="col-4">
+							<p>Order Date: 1/02/2022</p>
+						</div>
+						<div class="col-4">
+							<p>Product: Salmon Skis</p>
+						</div>
+						<div class="col-4">
+							<p>Shipped To: Thomas Smith</p>
+						</div>
+						<div class ="row">
 							<div class="col-4">
-								<p>Order Date: 1/02/2022</p>
+								<p>Date Returned: 2/26/22</p>
 							</div>
 							<div class="col-4">
-								<p>Product: Salmon Skis</p>
+								<p>Order Number: 3</p>
 							</div>
-							<div class="col-4">
-								<p>Shipped To: Thomas Smith</p>
-							</div>
-							<div class ="row">
+							<div class="col">
 								<form action="order-history.php">
 									<input type="hidden" name="orderid" value="3">
 									<input type="submit" value="Order History" class="btn btn-primary btn-lg">
 								</form>
-									<form action="return.php">
-										<input type="hidden" name="returned" value="3">
-										<input type="submit" value="Return?" class="btn btn-secondary btn-lg">
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
-					<footer class="text-muted py-5">
-            <div class="container">
-                <p class="float-end mb-1">
-                    <a href="#">Back to top</a>
-                </p>
-            <p class="mb-1">Kitten Factory &copy;</p>
-            </div>
-        </footer>
+				</div>
+			</div>
+		</div>
+		<footer class="text-muted py-5">
+			<div class="container">
+				<p class="float-end mb-1">
+					<a href="#">Back to top</a>
+				</p>
+			<p class="mb-1">Kitten Factory &copy;</p>
+			</div>
+		</footer>
     </body>
 </html>
