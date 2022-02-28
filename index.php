@@ -65,7 +65,7 @@
                 <div class="card shadow-sm">
                   <img class="bd-placeholder-img card-img-top" src="img/atomic.png">
                   <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><b>This class is very interesting and we are learning a lot!</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor sodales erat, quis viverra nisl convallis placerat. Nam sed lobortis elit. Ut faucibus, turpis et pellentesque tincidunt, metus justo maximus urna, vitae tincidunt eros sem vel erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit lacus ut risus commodo ultricies. </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
@@ -79,7 +79,7 @@
                 <div class="card shadow-sm">
                   <img class="bd-placeholder-img card-img-top" src="img/dps.png">
                   <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">This is a description of the ski. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor sodales erat, quis viverra nisl convallis placerat. Nam sed lobortis elit. Ut faucibus, turpis et pellentesque tincidunt, metus justo maximus urna, vitae tincidunt eros sem vel erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit lacus ut risus commodo ultricies. </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
@@ -93,7 +93,7 @@
                 <div class="card shadow-sm">
                   <img class="bd-placeholder-img card-img-top" src="img/kastle.png">
                   <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">This is a description of the ski. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor sodales erat, quis viverra nisl convallis placerat. Nam sed lobortis elit. Ut faucibus, turpis et pellentesque tincidunt, metus justo maximus urna, vitae tincidunt eros sem vel erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit lacus ut risus commodo ultricies. </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
@@ -108,7 +108,7 @@
                 <div class="card shadow-sm">
                   <img class="bd-placeholder-img card-img-top" src="img/salomon.png">
                   <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">This is a description of the ski. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor sodales erat, quis viverra nisl convallis placerat. Nam sed lobortis elit. Ut faucibus, turpis et pellentesque tincidunt, metus justo maximus urna, vitae tincidunt eros sem vel erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit lacus ut risus commodo ultricies. </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
@@ -122,7 +122,7 @@
                 <div class="card shadow-sm">
                   <img class="bd-placeholder-img card-img-top" src="img/volkl.png">
                   <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">This is a description of the ski. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor sodales erat, quis viverra nisl convallis placerat. Nam sed lobortis elit. Ut faucibus, turpis et pellentesque tincidunt, metus justo maximus urna, vitae tincidunt eros sem vel erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit lacus ut risus commodo ultricies. </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <a href="payment.php"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
