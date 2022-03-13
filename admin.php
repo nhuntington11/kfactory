@@ -45,10 +45,7 @@
                             <a class="nav-link" href="add-user.php">Add User</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="prodmat-detail.php">Add Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="prodmat-detail.php">Add Material</a>
+                            <a class="nav-link" href="prodmat-detail.php">Update Product or Material</a>
                         </li>
                     </ul>
                 </div>
