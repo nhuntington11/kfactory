@@ -19,7 +19,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	$row = $result->fetch_array(MYSQLI_ASSOC);
 	$passwordFromDB = $row['password'];
 
-	if ($tmp_password == $passwordFromDB) {
+	if (password_verify($tmp_password, $passwordFromDB)) {
 		$user = new User($tmp_email);
 
 		session_start();

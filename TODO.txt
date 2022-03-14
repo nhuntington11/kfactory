@@ -1,0 +1,5 @@
+- finish update-user.php
+
+- check for duplicate emails when adding user
+
+- add role selection to new user

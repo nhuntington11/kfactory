@@ -9,6 +9,8 @@ include_once 'dbinfo.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
+$firstname = $_SESSION['user']->firstname;
+
 echo <<<_NAV
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -37,10 +39,15 @@ echo <<<_NAV
 </header>
 
 <body>
-<div class="album py-5 bg-light">
-<div class="wrapper">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  <div class="album py-5 bg-light">
+    <div class="wrapper">
+      <div class="container">
+        <div class="row m-3">
+          <div class="col">
+            <h3>Hello, $firstname!</h3>
+          </div>
+          </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 _NAV;
 
 $query = "SELECT prod_id, prod_name, description, price, img_path FROM product";

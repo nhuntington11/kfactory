@@ -1,5 +1,8 @@
 <?php
 
+$page_roles = array('admin', 'employee', 'customer');
+
+include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 
@@ -7,6 +10,18 @@ $prod_name = $_POST['prod_name'];
 $price = (float)$_POST['price'];
 $img_path = $_POST['img_path'];
 $order_date = date('Y-m-d H:i:s');
+$email = $_SESSION['user']->email;
+$firstname = $_SESSION['user']->firstname;
+$lastname = $_SESSION['user']->lastname;
+$address1 = $_SESSION['user']->address1;
+if ($_SESSION['user']->address2) {
+	$address2 = $_SESSION['user']->address2;
+} else {
+	$address2 = "";
+}
+$city = $_SESSION['user']->city;
+$state = $_SESSION['user']->state;
+$zip = $_SESSION['user']->zip;
 
 if (isset($_POST['inputEmail4'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
@@ -40,7 +55,7 @@ echo <<<_NAV
 
 <body>		
 	<div class="container">
-		<section class="vh-100">
+		<section class="vh-110">
 			<div class="container py-5 h-100">
 				<div class="row">
 					<div class="col">
@@ -63,19 +78,27 @@ echo <<<_NAV
 				<form class="row g-3 mt-5" action="payment.php" method="post">
 					<div class="col-md-6">
 						<label for="inputEmail4" class="form-label">Email</label>
-						<input type="email" class="form-control" name="inputEmail4" value="nh@test.com" required>
+						<input type="email" class="form-control" name="inputEmail4" value="$email" required>
+					</div>
+					<div class="col-12">
+						<label for="firstname" class="form-label">Address</label>
+						<input type="text" class="form-control" name="firstname" value="$firstname" required>
+					</div>
+					<div class="col-12">
+						<label for="lastname" class="form-label">Address</label>
+						<input type="text" class="form-control" name="lastname" value="$lastname" required>
 					</div>
 					<div class="col-12">
 						<label for="inputAddress" class="form-label">Address</label>
-						<input type="text" class="form-control" name="inputAddress" value="123 Maine St" required>
+						<input type="text" class="form-control" name="inputAddress" value="$address1" required>
 					</div>
 					<div class="col-12">
 						<label for="inputAddress2" class="form-label">Address 2</label>
-						<input type="text" class="form-control" name="inputAddress2" placeholder="Apartment, studio, or floor">
+						<input type="text" class="form-control" name="$address2" placeholder="Apartment, studio, or floor">
 					</div>
 					<div class="col-md-6">
 						<label for="inputCity" class="form-label">City</label>
-						<input type="text" class="form-control" name="inputCity"  value="Salt Lake City" required>
+						<input type="text" class="form-control" name="inputCity"  value="$city" required>
 					</div>
 					<div class="col-md-4">
 						<label for="inputState" class="form-label">State</label>
@@ -84,8 +107,8 @@ echo <<<_NAV
 						</select>
 					</div>
 					<div class="col-md-2">
-						<label for="inputZip" class="form-label">Zip</label>
-						<input type="text" class="form-control" name="inputZip"  value="84120" required>
+						<label for="zip" class="form-label">Zip</label>
+						<input type="text" class="form-control" name="zip"  value="$zip" required>
 					</div>
 					<div class="col-12">
 						<input type="hidden" name="prod_name" value="$prod_name">
