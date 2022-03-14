@@ -1,5 +1,8 @@
 <?php
 
+$page_roles = array('admin', 'employee');
+
+include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 

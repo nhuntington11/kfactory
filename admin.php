@@ -1,33 +1,12 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <title>Kitten Factory - Admin</title>
-        <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+<?php
 
-        <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
+$page_roles = array('admin', 'employee');
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-            }
-        }
-        </style>  
-    </head>
+require_once 'check_session.php';
+require_once 'header.html';
 
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="index.php">Kitten Factory</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">

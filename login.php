@@ -1,112 +1,77 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Kitten Factory - Login</title>
-    <!-- Bootstrap core CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+<?php
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+require_once 'header.html';
+require_once 'dbinfo.php';
+require_once 'User.php';
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+$conn = new mysqli($hn, $un, $pw, $db);
+if ($conn->connect_error) die ($conn->connect_error);
 
-    
-  	</head>
-  	<body>
-		<header>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="index.php">Kitten Factory</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="index.php">Home</a>
-					</li>
-				</ul>
-				</div>
-			</div>
-			</nav>
-		</header>
+if (isset($_POST['email']) && isset($_POST['password'])) {
+	$tmp_email = $_POST['email'];
+	$tmp_password = $_POST['password'];
 
-		<main>
-			<div class="container">
-			<section class="vh-100">
+	$query = "SELECT password FROM users WHERE email = '$tmp_email'";
+
+	$result = $conn->query($query);
+	if (!$result) echo "DB ERROR";
+	
+	$row = $result->fetch_array(MYSQLI_ASSOC);
+	$passwordFromDB = $row['password'];
+
+	if ($tmp_password == $passwordFromDB) {
+		$user = new User($tmp_email);
+
+		session_start();
+		$_SESSION['user'] = $user;
+
+		header('Location: index.php');
+	} else {
+		header('Location: login.php');
+	}
+}
+
+echo <<<_NAV
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="login.php">Kitten Factory</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+</header>
+
+<body>
+	<div class="container">
+		<section class="vh-100">
 			<div class="container py-5 h-100">
 				<div class="row d-flex align-items-center justify-content-center h-100">
-				<div class="col-md-8 col-lg-7 col-xl-6">
-					<img src="img/login.svg" class="img-fluid" alt="login page">
-				</div>
-				<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-					<form>
-					<!-- Email input -->
-					<div class="form-outline mb-4">
-						<input type="email" id="form1Example13" class="form-control form-control-lg" />
-						<label class="form-label" for="form1Example13">Email address</label>
+					<div class="col-md-8 col-lg-7 col-xl-6">
+						<img src="img/login.svg" class="img-fluid" alt="login page">
 					</div>
-
-					<!-- Password input -->
-					<div class="form-outline mb-4">
-						<input type="password" id="form1Example23" class="form-control form-control-lg" />
-						<label class="form-label" for="form1Example23">Password</label>
-					</div>
-
-					<!-- <div class="d-flex justify-content-around align-items-center mb-4">
-						<div class="form-check">
-						<input
-							class="form-check-input"
-							type="checkbox"
-							value=""
-							id="rememberme"
-							checked
-						/>
-						<label class="form-check-label" for="rememberme"> Remember me </label>
+					<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+						<form action="login.php" method="post">
+						<div class="form-outline mb-4">
+							<input type="email" name="email" class="form-control form-control-lg" required>
+							<label class="form-label" for="email">Email address</label>
 						</div>
-						<a href="#!">Forgot password?</a>
-					</div> -->
-
-					<!-- Submit button -->
-					<!-- <a href="index.php"><button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button></a> -->
-					<a class="btn btn-primary btn-lg btn-block" href="index.php" role="button">Log In</a>
-
-					<div class="divider d-flex align-items-center my-4">
-						<p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+						<div class="form-outline mb-4">
+							<input type="password" name="password" class="form-control form-control-lg" required>
+							<label class="form-label" for="password">Password</label>
+						</div>
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Log In</a>
+						</form>
 					</div>
-
-					<a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="add-user.php" role="button">
-						<i class="fab fa-twitter me-2"></i>Sign Up</a>
-
-					</form>
 				</div>
-				</div>
-				</div>
-			</section>   
 			</div>
-		</main>
+		</section>   
+	</div>
+</body>
+_NAV;
 
-		<footer class="text-muted py-5">
-		<div class="container">
-			<p class="float-end mb-1">
-			<a href="#">Back to top</a>
-			</p>
-			<p class="mb-1">Kitten Factory &copy;</p>
-		</div>
-		</footer>
-	</body>
-</html>
+include_once 'footer.html';
+
+?>
+
+
