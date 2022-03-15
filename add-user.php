@@ -6,19 +6,19 @@ include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 
-if (isset($_POST['inputEmail4'])) {
+if (isset($_POST['email'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) die ($conn->connect_error);
 
-	$email = $_POST['inputEmail4'];
+	$email = $_POST['email'];
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
-	$address1 = $_POST['inputAddress'];
-	$address2 = $_POST['inputAddress2'];
-	$city = $_POST['inputCity'];
-	$state = $_POST['inputState'];
-	$zip = $_POST['inputZip'];
-	$password = password_hash($_POST['inputPassword4'], PASSWORD_DEFAULT);
+	$address1 = $_POST['address1'];
+	$address2 = $_POST['address2'];
+	$city = $_POST['city'];
+	$state = $_POST['state'];
+	$zip = $_POST['zip'];
+	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 	// $emails = "SELECT email FROM users";
 	// $email_result = $conn->query($emails);
@@ -78,36 +78,36 @@ echo <<<_NAV
 							</div>
 							</div>
 							<div class="form-group col-md-6">
-							<label for="inputEmail4">Email</label>
-							<input type="email" class="form-control" name="inputEmail4" placeholder="Email" required>
+							<label for="email">Email</label>
+							<input type="email" class="form-control" name="email" placeholder="Email" required>
 							</div>
 							<div class="form-group col-md-6">
-							<label for="inputPassword4">Password</label>
-							<input type="password" class="form-control" name="inputPassword4" placeholder="Password">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" name="password" placeholder="Password">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputAddress">Address</label>
-							<input type="text" class="form-control" name="inputAddress" placeholder="1234 Main St">
+							<label for="address1">Address</label>
+							<input type="text" class="form-control" name="address1" placeholder="1234 Main St">
 						</div>
 						<div class="form-group">
-							<label for="inputAddress2">Address 2</label>
-							<input type="text" class="form-control" name="inputAddress2" placeholder="Apartment, studio, or floor">
+							<label for="address2">Address 2</label>
+							<input type="text" class="form-control" name="address2" placeholder="Apartment, studio, or floor">
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-							<label for="inputCity">City</label>
-							<input type="text" class="form-control" name="inputCity">
+							<label for="city">City</label>
+							<input type="text" class="form-control" name="city">
 							</div>
 							<div class="form-group col-md-4">
-							<label for="inputState">State</label>
-							<select name="inputState" class="form-control">
+							<label for="state">State</label>
+							<select name="state" class="form-control">
 								<option>UT</option>
 							</select>
 							</div>
 							<div class="form-group col-md-2">
-							<label for="inputZip">Zip</label>
-							<input type="text" class="form-control" name="inputZip">
+							<label for="zip">Zip</label>
+							<input type="text" class="form-control" name="zip">
 							</div>
 						</div>
 						<button type="submit" class="btn btn-primary">Sign Up</button>
