@@ -6,6 +6,8 @@ include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 
+$user_id = $_SESSION['user']->user_id;
+
 echo <<<_NAV
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -19,7 +21,7 @@ echo <<<_NAV
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="update-user.php">My Account</a>
+                        <a class="nav-link" href="update-user.php?user_id=$user_id">My Account</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>
@@ -40,8 +42,6 @@ _NAV;
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
-
-$user_id = $_SESSION['user']->user_id;
 
 if (in_array('employee', $user_roles)) {
     $query = "SELECT * FROM orders ORDER BY fulfilled ASC, purchase_date DESC";
