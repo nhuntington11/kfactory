@@ -25,7 +25,23 @@ for($j=0; $j<$rows; $j++)
 	$row = $result->fetch_array(MYSQLI_ASSOC); 
 	
 
-echo <<<_END
+echo <<<_NAV
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="index.php">Kitten Factory</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+					<a class="nav-link" aria-current="page" href="index.php">Home</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
     <form action='update-user.php' method='post'>
 	<pre>
 	User ID: $row[user_id]
@@ -44,7 +60,7 @@ echo <<<_END
 		<input type='submit' value='UPDATE RECORD'>	
 	</form>
 	
-_END;
+_NAV;
 
 }
 
@@ -73,12 +89,4 @@ $conn->close();
 include_once 'footer.html';
 
 ?>
-<html>
-<body>
 
-<a href="admin.php">Back to Admin</a>
-<br>
-<a href='logout.php'>Log Out</a>
-
-</body>
-</html>
