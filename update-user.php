@@ -124,8 +124,10 @@ if (isset($_POST['userid'])) {
 	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', email='$email', address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
     $result = $conn->query($update_user); 
 	if (!$result) echo "ERROR2";
+
+	$_SESSION['user'] = new User($email);
 	
-	if (in_array('employee', $page_roles)) {
+	if (in_array('employee', $user_roles)) {
 		header('Location: admin.php');
 	} else {
 		header('Location: index.php');
