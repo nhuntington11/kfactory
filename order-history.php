@@ -1,161 +1,120 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <title>Kitten Factory - Order History</title>
-        <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+<?php
 
-        <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
+$page_roles = array('admin', 'employee', 'customer');
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-            }
-        }
-        </style>  
-    </head>
+include_once 'check_session.php';
+include_once 'header.html';
+include_once 'dbinfo.php';
 
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="index.php">Kitten Factory</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="add-user.php">My Account</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </nav>
-        </header>
-
+echo <<<_NAV
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
+            <a class="navbar-brand" href="index.php">Kitten Factory</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="update-user.php">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Orders</h3>
+        </div>
+    </div>
+_NAV;
+
+$conn = new mysqli($hn, $un, $pw, $db);
+if ($conn->connect_error) die ($conn->connect_error);
+
+$user_id = $_SESSION['user']->user_id;
+
+if (in_array('employee', $user_roles)) {
+    $query = "SELECT * FROM orders ORDER BY fulfilled ASC, purchase_date DESC";
+} else {
+    $query = "SELECT * FROM orders WHERE user_id = $user_id ORDER BY fulfilled ASC, purchase_date DESC";
+}
+
+$result = $conn->query($query);
+if (!$result) echo "ERROR IN DB CONNECTION";
+
+$rows = $result->num_rows;
+
+for ($i=0; $i<$rows; ++$i) {
+
+    $result->data_seek($i);
+    $row = $result->fetch_array(MYSQLI_ASSOC);
+
+    $order_id = $row['order_id'];
+    $order_date = $row['purchase_date'];
+    $product = $row['prod'];
+    $user_id_ = $row['user_id'];
+    $fulfilled = $row['fulfilled'];
+
+    $get_user = "SELECT * FROM users WHERE user_id = $user_id_";
+
+    $user_result = $conn->query($get_user);
+    if (!$user_result) echo "NO USER OF USERID $user_id";
+
+    $user_row = $user_result->fetch_array(MYSQLI_ASSOC);
+
+    $firstname = $user_row['firstname'];
+    $lastname = $user_row['lastname'];
+
+    if ($fulfilled) {
+        $border = "border-success";
+    } else {
+        $border = "border-danger";
+    }
+
+    echo <<<_ORDER
+    <div class="row mt-2 mb-2 border $border">
+        <div class="col p-2">
             <div class="row">
-                <div class="col">
-                    <h3>Pending Orders</h3>
+                <div class="col-4">
+                    <p>Order Date: $order_date</p>
                 </div>
-            </div>
-            <div class="row mt-2 mb-2 border border-danger">
-                <div class="col p-2">
-                    <div class="row">
-                        <div class="col-4">
-                            <p>Order Date: 2/26/2022</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Product: Atomic Skis</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Shipped To: Nick Huntington</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <p>Description: 1 pair Atomic Skis ordered</p>
-                        </div>
-                        <div class="col">
-                            <form action="order-detail.php">
-                                <input type="hidden" name="orderid" value="1">
-                                <input type="submit" value="Order Detail" class="btn btn-primary btn-lg">
-                            </form>
-                            <form action="return.php">
-                                <input type="hidden" name="returned" value="1">
-                                <input type="submit" value="Return" class="btn btn-secondary btn-lg">
-                            </form>
-                        </div>
-                    </div>
+                <div class="col-4">
+                    <p>Product: $product</p>
+                </div>
+                <div class="col-4">
+                    <p>Shipped To: $firstname $lastname</p>
                 </div>
             </div>
             <div class="row">
+                <div class="col-8">
+                    <p>Description: 1 pair $product Skis ordered</p>
+                </div>
                 <div class="col">
-                    <h3>Processed Orders</h3>
-                </div>
-            </div>
-            <div class="row mt-2 mb-2 border border-success">
-                <div class="col p-2">
-                    <div class="row">
-                        <div class="col-4">
-                            <p>Order Date: 2/25/2022</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Product: DPS Skis</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Shipped To: Nick Huntington</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <p>Description: 1 pair DPS Skis ordered</p>
-                        </div>
-                        <div class="col">
-                            <form action="order-detail.php">
-                                <input type="hidden" name="orderid" value="2">
-                                <input type="submit" value="Order Detail" class="btn btn-primary btn-lg">
-                            </form>
-                            <form action="return.php">
-                                <input type="hidden" name="returned" value="2">
-                                <input type="submit" value="Return" class="btn btn-secondary btn-lg">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2 mb-2 border border-success">
-                <div class="col p-2">
-                    <div class="row">
-                        <div class="col-4">
-                            <p>Order Date: 2/23/2022</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Product: Salomon SKis</p>
-                        </div>
-                        <div class="col-4">
-                            <p>Shipped To: Chong Oh</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <p>Description: 1 pair Salomon Skis ordered</p>
-                        </div>
-                        <div class="col">
-                            <form action="order-detail.php">
-                                <input type="hidden" name="orderid" value="2">
-                                <input type="submit" value="Order Detail" class="btn btn-primary btn-lg">
-                            </form>
-                            <form action="return.php">
-                                <input type="hidden" name="returned" value="2">
-                                <input type="submit" value="Return" class="btn btn-secondary btn-lg">
-                            </form>
-                        </div>
-                    </div>
+                    <form action="order-detail.php">
+                        <input type="hidden" name="orderid" value="$order_id">
+                        <input type="submit" value="Order Detail" class="btn btn-primary btn-lg">
+                    </form>
+                    <form action="return.php">
+                        <input type="hidden" name="returned" value="$order_id">
+                        <input type="submit" value="Return" class="btn btn-secondary btn-lg">
+                    </form>
                 </div>
             </div>
         </div>
-        <footer class="text-muted py-5">
-            <div class="container">
-                <p class="float-end mb-1">
-                    <a href="#">Back to top</a>
-                </p>
-            <p class="mb-1">Kitten Factory &copy;</p>
-            </div>
-        </footer>
-    </body>
-</html>
+    </div>
+    _ORDER;
+}
+
+include_once 'footer.html';
+
+?>

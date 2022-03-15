@@ -70,9 +70,51 @@ if(isset($_POST['actionToAdd'])) {
     }
 
     if ($action == 'product') {
+
+        $result = $conn->query("SELECT * FROM product");
+        if (!$result) echo "No Existing Products";
+
+        $rows = $result->num_rows;
+
+        echo <<<_ROW
+        <div class="row">
+        _ROW;
+
+        for ($i=0; $i<$rows; ++$i) {
+            $row = $result->data_seek($i);
+            $ski = $result->fetch_array(MYSQLI_ASSOC);
+
+            echo <<<_SKIS
+                <div class="col-4">
+                    <div class="card shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="$ski[img_path]">
+                        <div class="card-body">
+                            <p class="card-text">$ski[description]</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                <form action="payment.php" method="post">
+                                    <input type="hidden" name="prod_id" value="1">
+                                    <input type="text" name="prod_name" value="$ski[prod_name]">
+                                    <input type="number" name="price" value="$ski[price]">
+                                    <input type="number" name="quantity" value="$ski[quantity]">
+                                    <input type="hidden" name="img_path" value="1">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Update Ski</button></a>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            _SKIS;
+        }
+
+        echo <<<_ENDROW
+        </div>
+        _ENDROW;
+
         echo <<<_PROD
-        <div class="row justify-content-center mt-5">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="col-6">
                 <form action="prodmat-detail.php" method="post">
                     <label for="prod_name" class="form-label">Product Name</label>
                     <input type="text" name="prod_name" placeholder="Product Name" class="form-control" required>

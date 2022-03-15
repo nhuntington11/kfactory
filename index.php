@@ -10,6 +10,7 @@ $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
 $firstname = $_SESSION['user']->firstname;
+$user_id = $_SESSION['user']->user_id;
 
 echo <<<_NAV
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,6 +23,9 @@ echo <<<_NAV
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="update-user.php?user_id=$user_id">My Account</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="order-history.php">Order History</a>

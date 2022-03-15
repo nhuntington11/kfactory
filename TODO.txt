@@ -1,5 +1,9 @@
-- finish update-user.php 
-
 - check for duplicate emails when adding user
 
 - add role selection to new user
+
+- finish update product
+
+- when ordered decrease product quantity by 1
+
+- add payment info to user and track payments

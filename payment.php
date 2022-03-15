@@ -10,6 +10,7 @@ $prod_name = $_POST['prod_name'];
 $price = (float)$_POST['price'];
 $img_path = $_POST['img_path'];
 $order_date = date('Y-m-d H:i:s');
+$user_id = $_SESSION['user']->user_id;
 $email = $_SESSION['user']->email;
 $firstname = $_SESSION['user']->firstname;
 $lastname = $_SESSION['user']->lastname;
@@ -27,12 +28,12 @@ if (isset($_POST['inputEmail4'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) echo "CONNECTION ERROR";
 
-	$order_query = "INSERT INTO orders (purchase_date, total_price) VALUES ('$order_date', $price)";
+	$order_query = "INSERT INTO orders (user_id, purchase_date, prod, total_price) VALUES ($user_id, '$order_date', '$prod_name', $price)";
 
 	$order_result = $conn->query($order_query);
 	if (!$order_result) echo gettype($price).gettype($order_date);
 
-
+	header('Location: order-history.php');
 }
 
 echo <<<_NAV
