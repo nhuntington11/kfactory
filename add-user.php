@@ -9,7 +9,6 @@ include_once 'dbinfo.php';
 if (isset($_POST['email'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) die ($conn->connect_error);
-
 	$email = $_POST['email'];
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
@@ -19,20 +18,16 @@ if (isset($_POST['email'])) {
 	$state = $_POST['state'];
 	$zip = $_POST['zip'];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-	// $emails = "SELECT email FROM users";
-	// $email_result = $conn->query($emails);
-	// if (!$email_result) echo "ERROR";
-	// $used_emails = $email_result->fetch_array(MYSQLI_BOTH);
-	// print_r($used_emails);
-	
-	// for ($i=0; $i<count($used_emails); ++$i) {
-	// 	if ($email == $used_emails[$i]) {
-	// 		header('Location: admin.php');
-	// 	}
-	// }
-
+//adding the query
 	$add_user = "INSERT INTO users (firstname, lastname, email, address1, address2, city, zip, state, password) VALUES ('$firstname', '$lastname', '$email', '$address1', '$address2', '$city', '$zip', '$state', '$password')";
+	//checking duplicates emails
+	$check_duplicates = "SELECT email from users WHERE email = '$email'";
+	$email_duplicates = mysqli_query($conn, $check_duplicates);
+	$count = mysqli_num_rows($email_duplicates);
+	if($count > 0 ){
+		echo "<h1>Email is already register, please use different one</h2>";
+		return false;
+	}
 	$result_add_user = $conn->query($add_user);
 	if (!$result_add_user) echo "ERROR2";
 
