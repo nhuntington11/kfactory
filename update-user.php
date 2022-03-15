@@ -63,7 +63,7 @@ if (isset($_POST['update'])) {
 	$state = $_POST['state'];
 	$password = $_POST['password'];
 	
-	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', email='$email, address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
+	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', email='$email', address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
     $result = $conn->query($update_user); 
 	if (!$result) echo "ERROR2";
 
