@@ -114,7 +114,7 @@ else {
                         </div>
                     </div>
                     </form>
-                    <form action="update-user.php" method="post">
+                    <form action="update-user.php?user_id=$id" method="post">
                         <div class="row m-2">
                             <div class="col">
                                 <input type="hidden" name="id" value="$id">
