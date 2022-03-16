@@ -57,6 +57,7 @@ if (isset($_GET['orderid'])) {
 	$order_date = $order['purchase_date'];
 	$product = $order['prod'];
 	$fulfilled = $order['fulfilled'];
+	$returned = $order['returned'];
 
 	$get_user = "SELECT * FROM users WHERE user_id = $user_id";
 
@@ -71,14 +72,28 @@ if (isset($_GET['orderid'])) {
 	$checked = "";
 	$border = "border-danger";
 	if ($fulfilled) {
-		echo "FULFILLED";
 		$checked = "checked";
-		$border = "border-success";
 	}
-
+	
 	$submit = "";
 	if (in_array('employee', $user_roles)) {
 		$submit = "<input type='submit' value='Submit'>";
+	}
+
+	if ($returned) {
+		$fulfill_html = "";
+		$return = "<h4>RETURNED</h4>";
+		$border = "border-success";
+	} else {
+		$return = "";
+		$fulfill_html = "<form action='order-detail.php' method='post'>
+		<input type='hidden' name='orderid' value='$order_id'>
+		<input type='hidden' name='update' value='update'>
+		<label class='form-label' for='btn-check-outline'>Fulfilled?</label>
+		<input type='checkbox' class='form-check-input' name='fulfilled' value='1' $checked>
+		$submit
+		</form>";
+		$checked = "checked";
 	}
 
 	echo <<<_ORDER
@@ -96,17 +111,14 @@ if (isset($_GET['orderid'])) {
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-8">
+					<div class="col-4">
 						<p>Description: 1 pair $product Skis ordered</p>
 					</div>
+					<div class="col-4">
+						$return
+					</div>
 					<div class="col">
-						<form action="order-detail.php" method="post">
-							<input type="hidden" name="orderid" value="$order_id">
-							<input type="hidden" name="update" value="update">
-							<label class="form-label" for="btn-check-outline">Fulfilled?</label>
-							<input type="checkbox" class="form-check-input" name="fulfilled" value="1" $checked>
-							$submit
-						</form>
+						$fulfill_html
 					</div>
 				</div>
 			</div>
@@ -123,8 +135,11 @@ if (isset($_POST['update'])) {
 		$new_fulfilled = 0;
 	}
 
-	$result = $conn->query("UPDATE orders SET fulfilled = $new_fulfilled WHERE order_id = $order_id");
-	if (!$result) echo "COULD NOT QUERY DATABASE WITH ID $order_id";
+	$order_result = $conn->query("UPDATE orders SET fulfilled = $new_fulfilled WHERE order_id = $order_id");
+	if (!$order_result) echo "COULD NOT QUERY DATABASE WITH ID $order_id";
+
+	$shipping_result = $conn->query("INSERT INTO shipping (order_id, shipping_cost) VALUES ($order_id, 15.00)");
+	if (!$shipping_result) echo "COULD NOT UPDATE SHIPPING";
 
 	header('Location: order-history.php');
 }

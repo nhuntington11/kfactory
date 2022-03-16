@@ -3,9 +3,10 @@
 $page_roles = array('admin', 'employee', 'customer');
 
 
-include_once 'check_session.php';
-include_once 'header.html';
-include_once 'dbinfo.php';
+require_once 'check_session.php';
+require_once 'header.html';
+require_once 'dbinfo.php';
+require_once 'User.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if($conn->connect_error) die($conn->connect_error);
@@ -34,7 +35,10 @@ if(isset($_GET['user_id'])) {
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="index.php">Home</a>
+								<a class="nav-link" aria-current="page" href="index.php">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="logout.php">Logout</a>
 							</li>
 						</ul>
 					</div>
@@ -47,7 +51,32 @@ if(isset($_GET['user_id'])) {
 					<div class="container py-5 h-100">
 						<div class="row d-flex align-items-center justify-content-center h-100">
 							<div class="col-md-8 col-lg-7 col-xl-6">
-								<img src="$row[profile_pic]" class="img-fluid" alt="sign up page">
+								<div class="row">
+									<div class="col align-items-center justify-content-center">
+										<img src="$row[profile_pic]" class="img-fluid" width="250" alt="sign up page">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<form action="update-user.php" method="post">
+											<input type="hidden" name="add_cc" value="addcc">
+											<input type="hidden" name="userid" value="$row[user_id]">
+											<div class="form-row">
+												<label for="ccnumber">Card Number</label>
+												<input type="number" name="ccnumber" placeholder="Card Number">
+											</div>
+											<div class="form-row">
+												<label for="expdate">Expiration Date</label>
+												<input type="date" name="expdate">
+											</div>
+											<div class="form-row">
+												<label for="ccv">CCV</label>
+												<input type="number" name="ccv" placeholder="CCV">
+											</div>
+											<input type="submit" value="Add Card">
+										</form>
+									</div>
+								</div>
 							</div>
 							<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 								<form action="update-user.php" method="post">
@@ -96,6 +125,7 @@ if(isset($_GET['user_id'])) {
 										</div>
 									</div>
 									<input type="hidden" name="userid" value="$row[user_id]">
+									<input type="hidden" name="update_user" value="update_user">
 									<button type="submit" class="btn btn-primary">Update</button>
 								</form>
 							</div>
@@ -109,7 +139,7 @@ if(isset($_GET['user_id'])) {
 }
 
 
-if (isset($_POST['userid'])) {
+if (isset($_POST['update_user'])) {
     $user_id = $_POST['userid'];
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
@@ -125,8 +155,10 @@ if (isset($_POST['userid'])) {
     $result = $conn->query($update_user); 
 	if (!$result) echo "ERROR2";
 
-	$_SESSION['user'] = new User($email);
-	
+	if ($_SESSION['user']->email == $email) {
+		$_SESSION['user'] = new User($email);
+	}
+
 	if (in_array('employee', $user_roles)) {
 		header('Location: admin.php');
 	} else {
@@ -134,7 +166,20 @@ if (isset($_POST['userid'])) {
 	}
 }
 
+if (isset($_POST['add_cc'])) {
+	$user_id = $_POST['userid'];
+	$ccnum = $_POST['ccnumber'];
+	$expdate = $_POST['expdate'];
+	$ccv = $_POST['ccv'];
+
+	$cc_query = $conn->query("INSERT INTO cust_payment_type (user_id, cc_num, exp_date, ccv) VALUES ($user_id, '$ccnum', '$expdate', $ccv)");
+	if (!$cc_query) echo "COULD NOT ADD CARD <a href='update-user.php?user_id=$user_id'>try again</a>";
+
+	header("Location: update-user.php?user_id=$user_id");
+}
+
 $conn->close();
+
 include_once 'footer.html';
 
 ?>

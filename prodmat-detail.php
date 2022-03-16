@@ -92,12 +92,12 @@ if(isset($_POST['actionToAdd'])) {
                             <p class="card-text">$ski[description]</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                <form action="payment.php" method="post">
-                                    <input type="hidden" name="prod_id" value="1">
+                                <form action="prodmat-detail.php" method="post">
+                                    <input type="hidden" name="prod_id" value="$ski[prod_id]">
                                     <input type="text" name="prod_name" value="$ski[prod_name]">
                                     <input type="number" name="price" value="$ski[price]">
                                     <input type="number" name="quantity" value="$ski[quantity]">
-                                    <input type="hidden" name="img_path" value="1">
+                                    <input type="hidden" name="update_ski" value="set">
                                     <button type="submit" class="btn btn-sm btn-outline-secondary">Update Ski</button></a>
                                 </form>
                                 </div>
@@ -133,6 +133,7 @@ if(isset($_POST['actionToAdd'])) {
                     <input type="number" class="form-control" name="dims" placeholder="Length" min="150" max="210" step="1" required>
                     <label for="img_path" class="form-label">Image Path</label>
                     <input type="text" class="form-control" name="img_path" placeholder="/img/..."required>
+                    <input type="hidden" name="new_product" value="new">
                     <input type="submit" value="Update Products" class="btn btn-primary btn-lg m-2">
                 </form>
                 <a href="admin.php" class="btn btn-primary btn-lg m-2">Cancel</a>
@@ -154,7 +155,7 @@ if (isset($_POST['matquantity'])) {
     header('Location: admin.php');
 }
 
-if (isset($_POST['prod_name'])) {
+if (isset($_POST['new_prod'])) {
     $prod_name = $_POST['prod_name'];
     $prod_type = $_POST['prod_type'];
     $manuf_cost = $_POST['manuf_cost'];
@@ -163,12 +164,28 @@ if (isset($_POST['prod_name'])) {
     $img_path = $_POST['img_path'];
     $dimensions = $_POST['dims'];
 
-    $query = "INSERT INTO product (prod_name, description, type, price, manufacturing_cost, dimensions, img_path) VALUES ('$prod_name', '$desc', '$prod_type', $price, $manuf_cost, $dimensions, '$img_path')";
+    $add_ski_result = $conn->query("INSERT INTO product (prod_name, description, type, price, manufacturing_cost, dimensions, img_path) VALUES ('$prod_name', '$desc', '$prod_type', $price, $manuf_cost, $dimensions, '$img_path')");
+    if (!$add_ski_result) echo "ERROR";
 
-    $result = $conn->query($query);
-    if (!$result) echo "ERROR";
+    $update_materials_query = $conn->query("UPDATE raw_material SET ptex = ptex - 1, steel_edges = steel_edges - 1, plastic = plastic - 1");
+    if (!$update_materials_query) echo "COULD NOT UPDATE MATERIALS";
 
     header('Location: admin.php');
+}
+
+if (isset($_POST['update_ski'])) {
+    $prod_id = $_POST['prod_id'];
+    $prod_name = $_POST['prod_name'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+
+    $result = $conn->query("UPDATE product SET prod_name = '$prod_name', price = $price, quantity = $quantity WHERE prod_id = $prod_id");
+    if (!$result) echo "ERROR UPDATING PRODUCT <a href='prodmat-detail.php>go back</a>";
+
+    $update_ptex_query = $conn->query("UPDATE raw_material SET quantity = quantity - 1 WHERE material_name = 'ptex'");
+    $update_steel_edges_query = $conn->query("UPDATE raw_material SET quantity = quantity - 1 WHERE material_name = 'steel_edges'");
+    $update_plastic_query = $conn->query("UPDATE raw_material SET quantity = quantity - 1 WHERE material_name = 'plastic'");
+    if (!$update_ptex_query | !$update_steel_edges_query | !$update_plastic_query) echo "COULD NOT UPDATE MATERIALS";
 }
 
 include_once 'footer.html';

@@ -1,9 +1,13 @@
-- check for duplicate emails when adding user
+- check for bugs
+
+- add admin reports
+
+- what is the makeup table?
 
 - add role selection to new user
 
-- finish update product
+nh@kfactory.com / mysecret
+pjones@test.com / password
+bsmith@test.com / password
+tt@test.com / password
 
-- when ordered decrease product quantity by 1
-
-- add payment info to user and track payments

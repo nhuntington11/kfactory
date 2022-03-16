@@ -22,10 +22,16 @@ echo <<<_NAV
                         <a class="nav-link" aria-current="page" href="order-history.php">Order History</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="return.php">Returns</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="add-user.php">Add User</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="prodmat-detail.php">Update Product or Material</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -85,17 +91,17 @@ else {
                     <div class="row m-2">
                         <div class="col">
                             <label for="firstname">First Name</label>
-                            <input type="text" class="form-control" name="firstname" value="$firstname">
+                            <input type="text" class="form-control" name="firstname" value="$firstname" readonly>
                         </div>
                         <div class="col">
                             <label for="lastname">Last Name</label>
-                            <input type="text" class="form-control" name="lastname" value="$lastname">
+                            <input type="text" class="form-control" name="lastname" value="$lastname" readonly>
                         </div>
                     </div>
                     <div class="row m-2">
                         <div class="col">
                             <label for="idnumber">Id Number</label>
-                            <input type="text" class="form-control" name="idnumber" value="$id">
+                            <input type="text" class="form-control" name="idnumber" value="$id" readonly>
                         </div>
                         <div class="col">
                             <label for="role">Role</label>

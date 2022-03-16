@@ -54,7 +54,7 @@ echo <<<_NAV
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 _NAV;
 
-$query = "SELECT prod_id, prod_name, description, price, img_path FROM product";
+$query = "SELECT prod_id, prod_name, description, price, img_path, quantity FROM product";
 
 $result = $conn->query($query);
 if (!$result) echo "ERROR";
@@ -70,6 +70,7 @@ for ($i=0; $i<$rows; ++$i) {
   $img_path = $ski['img_path'];
   $description = $ski['description'];
   $price = $ski['price'];
+  $quantity = $ski['quantity'];
 
   echo <<<_SKI
   <div class="col">
@@ -87,7 +88,8 @@ for ($i=0; $i<$rows; ++$i) {
               <button type="submit" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
             </form>
           </div>
-          <small class="text-muted">$price</small>
+          <small class="text-muted">Price: $price</small>
+          <small class="text-muted">Quantity: $quantity</small>
         </div>
       </div>
     </div>
