@@ -211,14 +211,13 @@ if (isset($_POST['salesreport'])) {
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div></form>
                     <div class="col-md-3">
                         <div class="row m-2">
                             <div class="col">
                                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Update Roles">
                             </div>
                         </div>
-                        </form>
                         <form action="update-user.php?user_id=$id" method="post">
                             <div class="row m-2">
                                 <div class="col">
@@ -234,7 +233,5 @@ if (isset($_POST['salesreport'])) {
         }
     }
 }
-
 include_once 'footer.html';
-
 ?>
