@@ -92,8 +92,8 @@ if(isset($_GET['user_id'])) {
 											</div>
 										</div>
 										<div class="form-group col-md-6">
-										<label for="email">Email</label>
-										<input type="email" class="form-control" name="email" value="$row[email]" required>
+										<label for="username">Username</label>
+										<input type="text" class="form-control" name="username" value="$row[username]" required>
 										</div>
 										<div class="form-group col-md-6">
 										<label for="password">Password</label>
@@ -143,7 +143,7 @@ if (isset($_POST['update_user'])) {
     $user_id = $_POST['userid'];
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
-	$email = $_POST['email'];
+	$username = $_POST['username'];
 	$address1 = $_POST['address1'];
 	$address2 = $_POST['address2'];
 	$city = $_POST['city'];
@@ -151,12 +151,12 @@ if (isset($_POST['update_user'])) {
 	$state = $_POST['state'];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	
-	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', email='$email', address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
+	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', username='$username', address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
     $result = $conn->query($update_user); 
 	if (!$result) echo "ERROR2";
 
-	if ($_SESSION['user']->email == $email) {
-		$_SESSION['user'] = new User($email);
+	if ($_SESSION['user']->username == $username) {
+		$_SESSION['user'] = new User($username);
 	}
 
 	if (in_array('employee', $user_roles)) {

@@ -12,7 +12,7 @@ $price = (float)$_POST['price'];
 $img_path = $_POST['img_path'];
 $order_date = date('Y-m-d H:i:s');
 $user_id = $_SESSION['user']->user_id;
-$email = $_SESSION['user']->email;
+$username = $_SESSION['user']->username;
 $firstname = $_SESSION['user']->firstname;
 $lastname = $_SESSION['user']->lastname;
 $address1 = $_SESSION['user']->address1;
@@ -25,7 +25,7 @@ $city = $_SESSION['user']->city;
 $state = $_SESSION['user']->state;
 $zip = $_SESSION['user']->zip;
 
-if (isset($_POST['email'])) {
+if (isset($_POST['username'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) echo "CONNECTION ERROR";
 
@@ -130,8 +130,8 @@ if ($payment_rows == 0) {
 
 	echo <<<_FORM
 						<div class="col-md-6">
-							<label for="email" class="form-label">Email</label>
-							<input type="email" class="form-control" name="email" value="$email" required>
+							<label for="username" class="form-label">Username</label>
+							<input type="username" class="form-control" name="username" value="$username" required>
 						</div>
 						<div class="col-12">
 							<label for="firstname" class="form-label">Address</label>

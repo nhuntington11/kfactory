@@ -80,13 +80,13 @@ for ($i=0; $i<$rows; ++$i) {
     $quantity = $row['quantity'];
     $returned = $row['returned'];
 
-    $get_user = "SELECT * FROM users WHERE user_id = $user_id_";
+    $get_user = "SELECT * FROM users WHERE user_id = $user_id_ UNION SELECT * FROM deactivated_accounts WHERE user_id = $user_id_";
 
     $user_result = $conn->query($get_user);
     if (!$user_result) echo "NO USER OF USERID $user_id";
 
     $user_row = $user_result->fetch_array(MYSQLI_ASSOC);
-
+    
     $firstname = $user_row['firstname'];
     $lastname = $user_row['lastname'];
 

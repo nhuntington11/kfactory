@@ -1,13 +1,15 @@
 - check for bugs
 
-- add admin reports
-
-- what is the makeup table?
+- add product report
 
 - add role selection to new user
 
-nh@kfactory.com / mysecret
-pjones@test.com / password
-bsmith@test.com / password
-tt@test.com / password
+- Users with no money? how to display
+
+- add sanitizing
+
+nh / mysecret
+pjones / password
+bsmith / password
+tt / password
 

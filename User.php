@@ -7,7 +7,7 @@ if ($conn->connect_error) die ($conn->connect_error);
 
 class User {
     public $user_id;
-    public $email;
+    public $username;
     public $firstname;
     public $lastname;
     public $address1;
@@ -18,11 +18,11 @@ class User {
     public $password;
     public $roles = array();
 
-    function __construct($email) {
+    function __construct($username) {
         global $conn;
-        $this->email = $email;
+        $this->username = $username;
 
-        $query = "SELECT * FROM users WHERE email = '$email'";
+        $query = "SELECT * FROM users WHERE username = '$username'";
         $result = $conn->query($query);
         if (!$result) echo "ERROR1";
 

@@ -112,7 +112,7 @@ if (in_array('employee', $user_roles)) {
 	$return_query = $conn->query("SELECT * 
 								  FROM returns as r 
 								  INNER JOIN orders as o 
-								  ON r.order_id = o.order_id \
+								  ON r.order_id = o.order_id
 								  INNER JOIN users as u 
 								  ON o.user_id = u.user_id 
 								  WHERE o.user_id = $user_id");
@@ -125,16 +125,36 @@ for ($i=0; $i<$rows; ++$i) {
 	$return_query->data_seek($i);
 	$return = $return_query->fetch_array(MYSQLI_ASSOC);
 
+	// Set display options based on return status
 	if ($return['return_processed'] == 1) {
 		$checked = "checked";
 		$submit = "";
 		$readonly = "readonly";
 		$border = "border-success";
+		$returned_tag = "<h5>Returned</h5>";
 	} else {
 		$checked = "";
 		$submit = "<input type='submit' value='PROCESS RETURN'>";
 		$readonly = "";
 		$border = "border-danger";
+		$returned_tag = "";
+	}
+
+	// If user is employee then give option to process return
+	if (in_array('employee', $user_roles)) {
+		$return_option = "
+		<div class='col-4'>
+			<form action='return.php' method='post'>
+				<input type='hidden' name='order_id' value='$return[order_id]'>
+				<label for='return_check'>Returned?</label>
+				<input type='checkbox' name='return_check' value='1' $checked $readonly>
+				<input type='hidden' name='handlereturn' value='yes'>
+				$submit
+			</form>
+		</div>
+		";
+	} else {
+		$return_option = "";
 	}
 
 	echo <<<_RETURN
@@ -155,17 +175,9 @@ for ($i=0; $i<$rows; ++$i) {
 						<p>Date Returned: $return[date_returned]</p>
 					</div>
 					<div class="col-4">
-						<p>Order Number: $return[order_id]</p>
+						<p>Order Number: $return[order_id] $returned_tag</p>
 					</div>
-					<div class="col-4">
-						<form action="return.php" method="post">
-							<input type="hidden" name="order_id" value="$return[order_id]">
-							<label for="return_check">Returned?</label>
-							<input type="checkbox" name="return_check" value="1" $checked $readonly>
-							<input type="hidden" name="handlereturn" value="yes">
-							$submit
-						</form>
-					</div>
+					$return_option
 				</div>
 			</div>
 		</div>

@@ -6,10 +6,10 @@ include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 
-if (isset($_POST['email'])) {
+if (isset($_POST['username'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) die ($conn->connect_error);
-	$email = $_POST['email'];
+	$username = $_POST['username'];
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
 	$address1 = $_POST['address1'];
@@ -20,18 +20,18 @@ if (isset($_POST['email'])) {
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 	// Query to add new user
-	$add_user = "INSERT INTO users (firstname, lastname, email, address1, address2, city, zip, state, password) 
-				 VALUES ('$firstname', '$lastname', '$email', '$address1', '$address2', '$city', '$zip', '$state', '$password')";
+	$add_user = "INSERT INTO users (firstname, lastname, username, address1, address2, city, zip, state, password) 
+				 VALUES ('$firstname', '$lastname', '$username', '$address1', '$address2', '$city', '$zip', '$state', '$password')";
 	
-	// Checking for duplicate emails, if duplicate, not allowed
-	$check_duplicates = "SELECT email 
+	// Checking for duplicate usernames, if duplicate, not allowed
+	$check_duplicates = "SELECT username 
 						 FROM users 
-						 WHERE email = '$email'";
-	$email_duplicates = mysqli_query($conn, $check_duplicates);
+						 WHERE username = '$username'";
+	$username_duplicates = mysqli_query($conn, $check_duplicates);
 
-	$count = mysqli_num_rows($email_duplicates);
+	$count = mysqli_num_rows($username_duplicates);
 	if($count > 0 ){
-		echo "<h1>Email is already registered, please use <a href='add-user.php'>different one</a></h2>";
+		echo "<h1>Username is already registered, please use <a href='add-user.php'>different one</a></h2>";
 		return false;
 	}
 
@@ -80,8 +80,8 @@ echo <<<_NAV
 							</div>
 							</div>
 							<div class="form-group col-md-6">
-							<label for="email">Email</label>
-							<input type="email" class="form-control" name="email" placeholder="Email" required>
+							<label for="username">Username</label>
+							<input type="text" class="form-control" name="username" placeholder="username" required>
 							</div>
 							<div class="form-group col-md-6">
 							<label for="password">Password</label>

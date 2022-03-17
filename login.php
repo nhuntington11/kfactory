@@ -7,11 +7,11 @@ require_once 'User.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
-	$tmp_email = $_POST['email'];
+if (isset($_POST['username']) && isset($_POST['password'])) {
+	$tmp_username = $_POST['username'];
 	$tmp_password = $_POST['password'];
 
-	$query = "SELECT password FROM users WHERE email = '$tmp_email'";
+	$query = "SELECT password FROM users WHERE username = '$tmp_username'";
 
 	$result = $conn->query($query);
 	if (!$result) echo "DB ERROR";
@@ -20,7 +20,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	$passwordFromDB = $row['password'];
 
 	if (password_verify($tmp_password, $passwordFromDB)) {
-		$user = new User($tmp_email);
+		$user = new User($tmp_username);
 
 		session_start();
 		$_SESSION['user'] = $user;
@@ -53,8 +53,8 @@ echo <<<_NAV
 					<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 						<form action="login.php" method="post">
 						<div class="form-outline mb-4">
-							<input type="email" name="email" class="form-control form-control-lg" required>
-							<label class="form-label" for="email">Email address</label>
+							<input type="text" name="username" class="form-control form-control-lg" required>
+							<label class="form-label" for="username">Username</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="password" name="password" class="form-control form-control-lg" required>

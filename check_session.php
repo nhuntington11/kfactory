@@ -9,7 +9,7 @@ if(!isset($_SESSION['user'])) {
     exit();
 } else {
     $user = $_SESSION['user'];
-    $email = $user->email;
+    $email = $user->username;
     $user_roles = $user->get_roles();
 
     $allowed = 0;
