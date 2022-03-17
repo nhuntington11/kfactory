@@ -127,7 +127,7 @@ if (isset($_POST['salesreport'])) {
     _TEND;
 } else {
 // If no report is selected then show all users
-    $query = "SELECT * FROM users";
+    $query = "SELECT * FROM users as u INNER JOIN roles as r on u.user_id=r.user_id";
     $result = $conn->query($query);
     if (!$result) echo "ERROR CONNECTING TO DB";
     else {
@@ -141,6 +141,11 @@ if (isset($_POST['salesreport'])) {
             $lastname = $user_card['lastname'];
             $id = $user_card['user_id'];
             $profile_pic = "img/smiley.jpg";
+			$role = $user_card['role'];
+			$A=$B=$C='';
+			if($role=='customer') $A = 'selected';
+			if($role=='employee') $B = 'selected';
+			if($role=='admin') $C = 'selected';
 
             echo <<<_USER
             <form action="admin.php" method="post">
@@ -167,20 +172,19 @@ if (isset($_POST['salesreport'])) {
                             <div class="col">
                                 <label for="role">Role</label>
                                 <select class="form-control" name="role" id="userrole">
-                                    <option>Customer</option>
-                                    <option>Employee</option>
-                                    <option>Admininstrator</option>
+                                    <option value="customer" $A>Customer</option>
+                                    <option value="employee" $B>Employee</option>
+                                    <option value="admin" $C>Admininstrator</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div></form>
                     <div class="col-md-3">
                         <div class="row m-2">
                             <div class="col">
                                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Update Roles">
                             </div>
                         </div>
-                        </form>
                         <form action="update-user.php?user_id=$id" method="post">
                             <div class="row m-2">
                                 <div class="col">
@@ -195,7 +199,5 @@ if (isset($_POST['salesreport'])) {
         }
     }
 }
-
 include_once 'footer.html';
-
 ?>
