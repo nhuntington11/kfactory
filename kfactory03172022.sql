@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 16, 2022 at 11:10 PM
+-- Generation Time: Mar 17, 2022 at 02:15 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -36,15 +36,17 @@ CREATE TABLE IF NOT EXISTS `cust_payment_type` (
   `ccv` int NOT NULL,
   `amount` float NOT NULL DEFAULT '10000',
   PRIMARY KEY (`payment_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cust_payment_type`
 --
 
 INSERT INTO `cust_payment_type` (`payment_key`, `user_id`, `cc_num`, `exp_date`, `ccv`, `amount`) VALUES
-(1, 9, 5552223338888, '2022-04-06', 123, 10000),
-(2, 7, 9955884411, '2024-04-30', 456, 350.01);
+(1, 9, 5552223338888, '2022-04-06', 123, 10700),
+(2, 7, 9955884411, '2024-04-30', 456, 1050),
+(3, 8, 134567890001, '2026-02-18', 456, 9350.01),
+(4, 8, 23423432423432, '2023-03-28', 987, 9400.01);
 
 -- --------------------------------------------------------
 
@@ -78,14 +80,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `fulfilled` int NOT NULL,
   `returned` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `purchase_date`, `prod`, `prod_id`, `total_price`, `quantity`, `pmd_id`, `fulfilled`, `returned`) VALUES
-(9, 7, '2022-03-15 18:30:58', '', 0, 649.99, 1, 0, 1, 0),
+(9, 7, '2022-03-15 18:30:58', 'Salomon', 4, 649.99, 1, 0, 1, 0),
 (10, 7, '2022-03-15 18:52:43', 'Atomic', 1, 599.99, 1, 0, 1, 0),
 (11, 8, '2022-03-15 18:59:49', 'Kastle', 3, 499.99, 1, 0, 1, 1),
 (12, 6, '2022-03-15 19:23:30', 'Volkl', 5, 259.99, 1, 0, 1, 0),
@@ -95,13 +97,18 @@ INSERT INTO `orders` (`order_id`, `user_id`, `purchase_date`, `prod`, `prod_id`,
 (16, 6, '2022-03-16 19:34:34', 'Volkl', 5, 279.99, 1, 0, 1, 0),
 (17, 8, '2022-03-16 20:55:06', 'DPS', 2, 649.99, 1, 0, 1, 0),
 (18, 9, '2022-03-16 21:22:31', 'Atomic', 1, 599.99, 1, 0, 0, 1),
-(19, 9, '2022-03-16 22:40:14', 'Atomic', 1, 599.99, 1, 0, 0, 0),
+(19, 9, '2022-03-16 22:40:14', 'Atomic', 1, 599.99, 1, 0, 1, 0),
 (20, 9, '2022-03-16 22:47:29', 'Kastle', 3, 499.99, 1, 0, 0, 0),
 (21, 9, '2022-03-16 22:49:23', 'DPS', 2, 649.99, 1, 0, 0, 0),
-(22, 9, '2022-03-16 22:55:33', 'Salomon', 4, 599.99, 1, 0, 0, 0),
-(23, 9, '2022-03-16 22:56:07', 'Salomon', 4, 599.99, 1, 0, 0, 0),
-(24, 7, '2022-03-16 22:59:29', 'Atomic', 1, 599.99, 1, 0, 0, 0),
-(25, 7, '2022-03-16 23:09:02', 'DPS', 2, 649.99, 1, 0, 0, 0);
+(22, 9, '2022-03-16 22:55:33', 'Salomon', 4, 599.99, 1, 0, 0, 1),
+(23, 9, '2022-03-16 22:56:07', 'Salomon', 4, 599.99, 1, 0, 0, 1),
+(24, 7, '2022-03-16 22:59:29', 'Atomic', 1, 599.99, 1, 0, 1, 0),
+(25, 7, '2022-03-16 23:09:02', 'DPS', 2, 649.99, 1, 0, 1, 0),
+(26, 9, '2022-03-17 12:36:00', 'Salomon', 4, 599.99, 1, 0, 0, 1),
+(27, 9, '2022-03-17 13:02:48', 'Kastle', 3, 499.99, 1, 0, 1, 0),
+(28, 7, '2022-03-17 14:11:18', 'Kastle', 3, 499.99, 1, 0, 0, 0),
+(29, 8, '2022-03-17 14:12:25', 'DPS', 2, 649.99, 1, 0, 0, 0),
+(30, 8, '2022-03-17 14:13:04', 'Atomic', 1, 599.99, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -125,7 +132,12 @@ CREATE TABLE IF NOT EXISTS `payment` (
 INSERT INTO `payment` (`date`, `order_id`, `user_id`, `payment_id`) VALUES
 ('2022-03-16 16:56:07', 23, 9, 1),
 ('2022-03-16 16:59:29', 24, 7, 2),
-('2022-03-16 17:09:02', 25, 7, 2);
+('2022-03-16 17:09:02', 25, 7, 2),
+('2022-03-17 06:36:00', 26, 9, 1),
+('2022-03-17 07:02:48', 27, 9, 1),
+('2022-03-17 08:11:18', 28, 7, 2),
+('2022-03-17 08:12:25', 29, 8, 3),
+('2022-03-17 08:13:04', 30, 8, 4);
 
 -- --------------------------------------------------------
 
@@ -152,11 +164,11 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_name`, `description`, `type`, `price`, `manufacturing_cost`, `dimensions`, `img_path`, `quantity`) VALUES
-(1, 'Atomic', 'A super light carbon ski that is designed to go fast uphill and down', 'ski', 599.99, 10, 179, 'img/atomic.png', 8),
-(2, 'DPS', 'A great all mountain ski for the resort, fun on groomers and fun in powder.', 'ski', 649.99, 15, 179, 'img/dps.png', 10),
-(3, 'Kastle', 'A lightweight short ski, excellent for steep narrow couloirs with the bulletproof Dynafit Speedturn binding', 'ski', 499.99, 20, 169, 'img/kastle.png', 12),
-(4, 'Salomon', 'For those deeper days get on the wider boards. 181mm long and rockered to really enjoy the deep powder.', 'ski', 599.99, 9, 181, 'img/salomon.png', 6),
-(5, 'Volkl', 'A beater pair for the resort designed to take hits and rocks at speed', 'ski', 279.99, 9, 179, 'img/volkl.png', 4);
+(1, 'Atomic', 'A super light carbon ski that is designed to go fast uphill and down', 'ski', 599.99, 10, 179, 'img/atomic.png', 10),
+(2, 'DPS', 'A great all mountain ski for the resort, fun on groomers and fun in powder.', 'ski', 649.99, 15, 179, 'img/dps.png', 9),
+(3, 'Kastle', 'A lightweight short ski, excellent for steep narrow couloirs with the bulletproof Dynafit Speedturn binding', 'ski', 499.99, 20, 169, 'img/kastle.png', 20),
+(4, 'Salomon', 'For those deeper days get on the wider boards. 181mm long and rockered to really enjoy the deep powder.', 'ski', 599.99, 9, 181, 'img/salomon.png', 7),
+(5, 'Volkl', 'A beater pair for the resort designed to take hits and rocks at speed', 'ski', 279.99, 9, 179, 'img/volkl.png', 8);
 
 -- --------------------------------------------------------
 
@@ -194,20 +206,21 @@ CREATE TABLE IF NOT EXISTS `returns` (
   `order_id` int NOT NULL,
   `date_returned` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `quantity` int NOT NULL,
+  `return_processed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`return_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `returns`
 --
 
-INSERT INTO `returns` (`return_id`, `order_id`, `date_returned`, `quantity`) VALUES
-(1, 15, '2022-03-16 14:25:04', 1),
-(2, 0, '2022-03-16 14:49:58', 0),
-(3, 0, '2022-03-16 14:50:22', 0),
-(4, 0, '2022-03-16 14:58:11', 0),
-(5, 11, '2022-03-16 15:02:06', 1),
-(6, 18, '2022-03-16 15:23:10', 1);
+INSERT INTO `returns` (`return_id`, `order_id`, `date_returned`, `quantity`, `return_processed`) VALUES
+(1, 15, '2022-03-16 14:25:04', 1, 1),
+(5, 11, '2022-03-16 15:02:06', 1, 1),
+(6, 18, '2022-03-16 15:23:10', 1, 0),
+(7, 22, '2022-03-17 06:47:44', 1, 0),
+(8, 23, '2022-03-17 06:48:20', 1, 0),
+(9, 26, '2022-03-17 06:49:47', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -255,7 +268,11 @@ CREATE TABLE IF NOT EXISTS `shipping` (
 --
 
 INSERT INTO `shipping` (`order_id`, `ship_date`, `delivery_date`, `shipping_cost`, `carrier`) VALUES
-(17, '2022-03-16 15:33:29', '2022-03-16 15:33:29', 15, 'UPS');
+(17, '2022-03-16 15:33:29', '2022-03-16 15:33:29', 15, 'UPS'),
+(19, '2022-03-17 06:36:25', '2022-03-17 06:36:25', 15, 'UPS'),
+(24, '2022-03-17 06:36:29', '2022-03-17 06:36:29', 15, 'UPS'),
+(25, '2022-03-17 06:36:32', '2022-03-17 06:36:32', 15, 'UPS'),
+(27, '2022-03-17 08:08:47', '2022-03-17 08:08:47', 15, 'UPS');
 
 -- --------------------------------------------------------
 

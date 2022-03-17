@@ -9,9 +9,24 @@ include_once 'dbinfo.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
+// Set page variables to current user
 $firstname = $_SESSION['user']->firstname;
 $user_id = $_SESSION['user']->user_id;
 
+// Get amount on card for user
+$amount_query = $conn->query("SELECT ROUND(SUM(amount),2) as total_amount FROM cust_payment_type WHERE user_id = $user_id");
+if (!$amount_query) {
+  $amount = "ERROR";
+}
+
+if ($amount_query->num_rows == 0) {
+  $amount = 0.00;
+} else {
+  $row = $amount_query->fetch_array(MYSQLI_ASSOC);
+  $amount = $row['total_amount'];
+}
+
+// Navbar options
 echo <<<_NAV
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -48,7 +63,7 @@ echo <<<_NAV
       <div class="container">
         <div class="row m-3">
           <div class="col">
-            <h3>Hello, $firstname!</h3>
+            <h3>Hello, $firstname! You have $amount to spend!</h3>
           </div>
           </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -65,31 +80,24 @@ for ($i=0; $i<$rows; ++$i) {
   $result->data_seek($i);
   $ski = $result->fetch_array(MYSQLI_ASSOC);
 
-  $prod_id = $ski['prod_id'];
-  $prod_name = $ski['prod_name'];
-  $img_path = $ski['img_path'];
-  $description = $ski['description'];
-  $price = $ski['price'];
-  $quantity = $ski['quantity'];
-
   echo <<<_SKI
   <div class="col">
     <div class="card shadow-sm">
-      <img class="bd-placeholder-img card-img-top" src="$img_path">
+      <img class="bd-placeholder-img card-img-top" src="$ski[img_path]">
       <div class="card-body">
-        <p class="card-text">$description</p>
+        <p class="card-text">$ski[description]</p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <form action="payment.php" method="post">
-              <input type="hidden" name="prod_id" value="$prod_id">
-              <input type="hidden" name="prod_name" value="$prod_name">
-              <input type="hidden" name="price" value="$price">
-              <input type="hidden" name="img_path" value="$img_path">
+              <input type="hidden" name="prod_id" value="$ski[prod_id]">
+              <input type="hidden" name="prod_name" value="$ski[prod_name]">
+              <input type="hidden" name="price" value="$ski[price]">
+              <input type="hidden" name="img_path" value="$ski[img_path]">
               <button type="submit" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>
             </form>
           </div>
-          <small class="text-muted">Price: $price</small>
-          <small class="text-muted">Quantity: $quantity</small>
+          <small class="text-muted">Price: $ski[price]</small>
+          <small class="text-muted">Quantity: $ski[quantity]</small>
         </div>
       </div>
     </div>

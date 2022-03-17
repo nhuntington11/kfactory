@@ -6,8 +6,10 @@ include_once 'check_session.php';
 include_once 'header.html';
 include_once 'dbinfo.php';
 
+// Required to make My Account work
 $user_id = $_SESSION['user']->user_id;
 
+// Navbar options
 echo <<<_NAV
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -46,10 +48,17 @@ _NAV;
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
+// Check role and if employee/admin get all orders, if customer get customer orders
 if (in_array('employee', $user_roles)) {
-    $query = "SELECT * FROM orders ORDER BY fulfilled ASC, purchase_date DESC";
+    $query = "SELECT * 
+              FROM orders
+              WHERE returned = 0 
+              ORDER BY fulfilled ASC, purchase_date DESC";
 } else {
-    $query = "SELECT * FROM orders WHERE user_id = $user_id ORDER BY fulfilled ASC, purchase_date DESC";
+    $query = "SELECT * 
+              FROM orders 
+              WHERE user_id = $user_id 
+              ORDER BY fulfilled ASC, purchase_date DESC";
 }
 
 $result = $conn->query($query);
@@ -97,16 +106,13 @@ for ($i=0; $i<$rows; ++$i) {
         $return = "";
         $return_option = "<form action='return.php' method='post'>
         <input type='hidden' name='order_id' value=$order_id>
-        <input type='hidden' name='quantity' value=$quantity>
-        <input type='hidden' name='order_date' value='$order_date'>
-        <input type='hidden' name='prod_id' value=$prod_id>
         <input type='hidden' name='returned' value='yes'>
         <input type='submit' value='Return' class='btn btn-secondary btn-lg'>
         </form>";
     }
 
     echo <<<_ORDER
-    <div class="row mt-2 mb-2 border $border $background">
+    <div class="row mt-2 mb-2 border rounded $border $background">
         <div class="col p-2">
             <div class="row">
                 <div class="col-4">

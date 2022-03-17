@@ -89,7 +89,7 @@ if (isset($_GET['orderid'])) {
 		$fulfill_html = "<form action='order-detail.php' method='post'>
 		<input type='hidden' name='orderid' value='$order_id'>
 		<input type='hidden' name='update' value='update'>
-		<label class='form-label' for='btn-check-outline'>Fulfilled?</label>
+		<label class='form-label' for='fulfilled'>Fulfilled?</label>
 		<input type='checkbox' class='form-check-input' name='fulfilled' value='1' $checked>
 		$submit
 		</form>";
@@ -97,7 +97,7 @@ if (isset($_GET['orderid'])) {
 	}
 
 	echo <<<_ORDER
-		<div class="row mt-2 mb-2 border $border">
+		<div class="row mt-2 mb-2 border rounded $border">
 			<div class="col p-2">
 				<div class="row">
 					<div class="col-4">
