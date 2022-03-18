@@ -159,10 +159,10 @@ if (isset($_POST['salesreport'])) {
             $id = $user_card['user_id'];
             $profile_pic = "img/smiley.jpg";
             $role = $user_card['role'];
-			$A=$B=$C='';
-			if($role=='customer') $A = 'selected';
-			if($role=='employee') $B = 'selected';
-			if($role=='admin') $C = 'selected';
+            $A=$B=$C='';
+            if($role=='customer') $A = 'selected';
+            if($role=='employee') $B = 'selected';
+            if($role=='admin') $C = 'selected';
 
             // Only show delete for admin employees
             if (in_array('admin', $user_roles)) {
@@ -179,7 +179,17 @@ if (isset($_POST['salesreport'])) {
             } else {
                 $delete_user = "";
             }
-
+			if(isset($_POST['update'])){
+                    
+                    $role = $_POST['role'];
+                    
+                    $query = "Update roles set role='$role' where user_id = $id";
+                    
+                    $result = $conn->query($query); 
+                    if(!$result) die($conn->error);
+                    
+                    header("Location: admin.php"); 
+                }
             echo <<<_USER
             <form action="admin.php" method="post">
                 <div class="row m-2 mb-4 border border-primary">
@@ -204,7 +214,7 @@ if (isset($_POST['salesreport'])) {
                             </div>
                             <div class="col">
                                 <label for="role">Role</label>
-                                <select class="form-control" name="role" id="userrole">
+                                <select class="form-control" name="role">
                                     <option value="customer" $A>Customer</option>
                                     <option value="employee" $B>Employee</option>
                                     <option value="admin" $C>Admininstrator</option>
@@ -215,7 +225,11 @@ if (isset($_POST['salesreport'])) {
                     <div class="col-md-3">
                         <div class="row m-2">
                             <div class="col">
+                                <form action='admin.php' method='post'>
+                                <input type='hidden' name='update' value='yes'>
+                                <input type='hidden' name='role' value='$user_card[role]'>
                                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Update Roles">
+                                </form>
                             </div>
                         </div>
                         <form action="update-user.php?user_id=$id" method="post">
