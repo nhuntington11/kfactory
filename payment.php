@@ -2,9 +2,10 @@
 
 $page_roles = array('admin', 'employee', 'customer');
 
-include_once 'check_session.php';
-include_once 'header.html';
-include_once 'dbinfo.php';
+require_once 'check_session.php';
+require_once 'header.html';
+require_once 'dbinfo.php';
+require_once 'sanitize.php';
 
 $prod_id = $_POST['prod_id'];
 $prod_name = $_POST['prod_name'];
@@ -131,37 +132,35 @@ if ($payment_rows == 0) {
 	echo <<<_FORM
 						<div class="col-md-6">
 							<label for="username" class="form-label">Username</label>
-							<input type="username" class="form-control" name="username" value="$username" required>
+							<input type="username" class="form-control" name="username" value="$username" readonly>
 						</div>
 						<div class="col-12">
 							<label for="firstname" class="form-label">Address</label>
-							<input type="text" class="form-control" name="firstname" value="$firstname" required>
+							<input type="text" class="form-control" name="firstname" value="$firstname" readonly>
 						</div>
 						<div class="col-12">
 							<label for="lastname" class="form-label">Address</label>
-							<input type="text" class="form-control" name="lastname" value="$lastname" required>
+							<input type="text" class="form-control" name="lastname" value="$lastname" readonly>
 						</div>
 						<div class="col-12">
 							<label for="inputAddress" class="form-label">Address</label>
-							<input type="text" class="form-control" name="inputAddress" value="$address1" required>
+							<input type="text" class="form-control" name="inputAddress" value="$address1" readonly>
 						</div>
 						<div class="col-12">
 							<label for="inputAddress2" class="form-label">Address 2</label>
-							<input type="text" class="form-control" name="$address2" placeholder="Apartment, studio, or floor">
+							<input type="text" class="form-control" name="$address2" placeholder="Apartment, studio, or floor" readonly>
 						</div>
 						<div class="col-md-6">
 							<label for="inputCity" class="form-label">City</label>
-							<input type="text" class="form-control" name="inputCity"  value="$city" required>
+							<input type="text" class="form-control" name="inputCity"  value="$city" readonly>
 						</div>
 						<div class="col-md-4">
-							<label for="inputState" class="form-label">State</label>
-							<select id="inputState" class="form-select">
-							<option value="UT">UT</option>
-							</select>
+							<label for="state" class="form-label">State</label>
+							<input type="text" class="form-control" name-"state" value="$state" readonly>
 						</div>
 						<div class="col-md-2">
 							<label for="zip" class="form-label">Zip</label>
-							<input type="text" class="form-control" name="zip"  value="$zip" required>
+							<input type="text" class="form-control" name="zip"  value="$zip" readonly>
 						</div>
 						<div class="col-12">
 							<input type="hidden" name="prod_id" value="$prod_id">

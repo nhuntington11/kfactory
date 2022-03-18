@@ -3,13 +3,14 @@
 require_once 'header.html';
 require_once 'dbinfo.php';
 require_once 'User.php';
+require_once 'sanitize.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-	$tmp_username = $_POST['username'];
-	$tmp_password = $_POST['password'];
+	$tmp_username = sanitize($conn, $_POST['username']);
+	$tmp_password = sanitize($conn, $_POST['password']);
 
 	$query = "SELECT password FROM users WHERE username = '$tmp_username'";
 

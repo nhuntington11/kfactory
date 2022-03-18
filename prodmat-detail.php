@@ -1,7 +1,11 @@
 <?php
 
-include_once 'header.html';
-include_once 'dbinfo.php';
+$page_roles = array('admin', 'employee');
+
+require_once 'check_session.php';
+require_once 'header.html';
+require_once 'dbinfo.php';
+require_once 'sanitize.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);
@@ -49,18 +53,52 @@ if(isset($_POST['actionToAdd'])) {
     if ($action == 'material') {
         echo <<<_MAT
         <div class="row justify-content-center">
+            <div class="col-sm">
+                <table class="table">
+                    <thead>
+                        <td>Product</td>
+                        <td>Quantity</td>
+                        <td>Last Purchased</td>
+                    </thead>
+                    <tbody>
+        _MAT;
+
+        $material_query = $conn->query("SELECT * FROM raw_material");
+        if (!$material_query) echo "COULD NOT RUN QUERY";
+
+        $rows = $material_query->num_rows;
+
+        for ($i=0; $i<$rows; ++$i) {
+            $material_query->data_seek($i);
+            $material = $material_query->fetch_array(MYSQLI_ASSOC);
+
+            echo <<<_ROW
+                <tr>
+                    <td>$material[material_name]</td>
+                    <td>$material[quantity]</td>
+                    <td>$material[date_purchased]</td>
+                </tr>
+            _ROW;
+        }
+
+        echo <<<_MAT
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-sm-6">
                 <form action="prodmat-detail.php" method="post">
                     <label for="material" class="form-label">Material</label>
                     <select name="material" id="material" class="form-control">
                         <option value="ptex" selected>PTEX</option>
                         <option value="steel_edges">Steel Edges</option>
-                        <option value="add_new">Add new...</option>
+                        <option value="plastic">Plastic</option>
                     </select>
                     <label for="matquantity" class="form-label" required>Quantity</label>
                     <input type="number" class="form-control" name="matquantity" min="1" max="999" step="1">
                     <label for="date" class="form-label">Date Purchased</label>
-                    <input type="date" name="date" class="form-control">
+                    <input type="date" name="purchase_date" class="form-control">
                     <input type="submit" value="Update Materials" class="btn btn-primary btn-lg m-2">
                 </form>
                 <a href="admin.php" class="btn btn-primary btn-lg m-2">Cancel</a>
@@ -92,14 +130,29 @@ if(isset($_POST['actionToAdd'])) {
                             <p class="card-text">$ski[description]</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                <form action="prodmat-detail.php" method="post">
-                                    <input type="hidden" name="prod_id" value="$ski[prod_id]">
-                                    <input type="text" name="prod_name" value="$ski[prod_name]">
-                                    <input type="number" name="price" value="$ski[price]">
-                                    <input type="number" name="quantity" value="$ski[quantity]">
-                                    <input type="hidden" name="update_ski" value="set">
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Update Ski</button></a>
-                                </form>
+                                    <form action="prodmat-detail.php" method="post">
+                                        <input type="hidden" name="prod_id" value="$ski[prod_id]">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="prod_name" class="form-label">Product</label>
+                                                <input type="text" class="form-input" name="prod_name" value="$ski[prod_name]">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="price" class="form-label">Price</label>
+                                                <input type="number" class="form-input" name="price" value="$ski[price]">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="quantity" class="form-label">Quantity</label>
+                                                <input type="number" class="form-input" name="quantity" value="$ski[quantity]">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="update_ski" value="set">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Update Ski</button></a>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +199,9 @@ if(isset($_POST['actionToAdd'])) {
 if (isset($_POST['matquantity'])) {
     $quantity = (int)$_POST['matquantity'];
     $material = $_POST['material'];
+    $date = $_POST['purchase_date'];
 
-    $query = "UPDATE raw_material SET quantity = quantity+$quantity WHERE material_name = '$material'";
+    $query = "UPDATE raw_material SET quantity = quantity + $quantity, date_purchased = '$date' WHERE material_name = '$material'";
 
     $result = $conn->query($query);
     if (!$result) echo "ERROR";
@@ -175,7 +229,7 @@ if (isset($_POST['new_prod'])) {
 
 if (isset($_POST['update_ski'])) {
     $prod_id = $_POST['prod_id'];
-    $prod_name = $_POST['prod_name'];
+    $prod_name = sanitize($conn, $_POST['prod_name']);
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
 

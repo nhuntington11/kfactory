@@ -2,22 +2,24 @@
 
 $page_roles = array('admin', 'employee');
 
-include_once 'check_session.php';
-include_once 'header.html';
-include_once 'dbinfo.php';
+require_once 'check_session.php';
+require_once 'header.html';
+require_once 'dbinfo.php';
+require_once 'sanitize.php';
 
 if (isset($_POST['username'])) {
 	$conn = new mysqli($hn, $un, $pw, $db);
 	if ($conn->connect_error) die ($conn->connect_error);
-	$username = $_POST['username'];
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$address1 = $_POST['address1'];
-	$address2 = $_POST['address2'];
-	$city = $_POST['city'];
+
+	$username = sanitize($conn, $_POST['username']);
+	$firstname = sanitize($conn, $_POST['firstname']);
+	$lastname = sanitize($conn, $_POST['lastname']);
+	$address1 = sanitize($conn, $_POST['address1']);
+	$address2 = sanitize($conn, $_POST['address2']);
+	$city = sanitize($conn, $_POST['city']);
 	$state = $_POST['state'];
-	$zip = $_POST['zip'];
-	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$zip = sanitize($conn, $_POST['zip']);
+	$password = sanitize($conn, password_hash($_POST['password'], PASSWORD_DEFAULT));
 
 	// Query to add new user
 	$add_user = "INSERT INTO users (firstname, lastname, username, address1, address2, city, zip, state, password) 

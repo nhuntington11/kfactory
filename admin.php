@@ -6,6 +6,39 @@ require_once 'check_session.php';
 require_once 'header.html';
 require_once 'dbinfo.php';
 
+if (in_array('admin', $user_roles)) {
+    $role_button = "";
+    $reports = "
+    <div class='row m-4 p-4 border-bottom border-primary'>
+    <div class='col-6'>
+    <h4>Sales Report</h4>
+        <form action='admin.php' method='post'>
+        <label for='start_date' class='form-label'>Start Date</label>
+        <input type='date' name='start_date' class='form-control'>
+        <label for='end_date' class='form-label'>Start Date</label>
+        <input type='date' name='end_date' class='form-control'>
+        <input type='hidden' name='salesreport' value='yes'>
+        <input type='submit' value='Generate Sales Report' class='btn btn-primary btn-lg m-2'>
+        </form>
+    </div>
+    <div class='col-6'>
+    <h4>Product Report</h4>
+        <form action='admin.php' method='post'>
+        <label for='start_date' class='form-label'>Start Date</label>
+        <input type='date' name='start_date' class='form-control'>
+        <label for='end_date' class='form-label'>Start Date</label>
+        <input type='date' name='end_date' class='form-control'>
+        <input type='hidden' name='productreport' value='yes'>
+        <input type='submit' value='Generate Product Report' class='btn btn-primary btn-lg m-2'>
+        </form>
+    </div>
+</div>
+    ";
+} else {
+    $role_button = "disabled";
+    $reports = "";
+}
+
 echo <<<_NAV
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -42,30 +75,7 @@ echo <<<_NAV
     </nav>
 </header>
 <div class="container">
-    <div class="row m-4 p-4 border-bottom border-primary">
-        <div class="col-6">
-        <h4>Sales Report</h4>
-            <form action="admin.php" method="post">
-            <label for="start_date" class="form-label">Start Date</label>
-            <input type="date" name="start_date" class="form-control">
-            <label for="end_date" class="form-label">Start Date</label>
-            <input type="date" name="end_date" class="form-control">
-            <input type="hidden" name="salesreport" value="yes">
-            <input type="submit" value="Generate Sales Report" class="btn btn-primary btn-lg m-2">
-            </form>
-        </div>
-        <div class="col-6">
-        <h4>Product Report</h4>
-            <form action="admin.php" method="post">
-            <label for="start_date" class="form-label">Start Date</label>
-            <input type="date" name="start_date" class="form-control">
-            <label for="end_date" class="form-label">Start Date</label>
-            <input type="date" name="end_date" class="form-control">
-            <input type="hidden" name="productreport" value="yes">
-            <input type="submit" value="Generate Product Report" class="btn btn-primary btn-lg m-2">
-            </form>
-        </div>
-    </div>
+    $reports
 _NAV;
 
 $conn = new mysqli($hn, $un, $pw, $db);
@@ -96,13 +106,15 @@ if (isset($_POST['delete'])) {
 
 // Update role form - admin
 if (isset($_POST['update_role_admin'])) {
-    $user_id = $_POST['user_id'];
-    $action = $_POST['update_role_admin'];
+    if (in_array('admin', $user_roles)) {
+        $user_id = $_POST['user_id'];
+        $action = $_POST['update_role_admin'];
 
-    if ($action == 'Add') {
-        $add_query = $conn->query("INSERT INTO roles (user_id, role) VALUES ($user_id, 'admin')");
-    } elseif ($action == 'Remove') {
-        $remove_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id AND role = 'admin'");
+        if ($action == 'Add') {
+            $add_query = $conn->query("INSERT INTO roles (user_id, role) VALUES ($user_id, 'admin')");
+        } elseif ($action == 'Remove') {
+            $remove_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id AND role = 'admin'");
+        }
     }
 }
 
@@ -207,11 +219,6 @@ if (isset($_POST['salesreport'])) {
             <h2>PRODUCT REPORT</h2>
         </div>
         <div class="col">
-            <h2>PRODUCT REPORT</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
             <h4>Start Date: $startdate</h4>
         </div>
         <div class="col">
@@ -291,7 +298,7 @@ if (isset($_POST['salesreport'])) {
             <p>Admin - $granted</p>
             <input type='hidden' name='user_id' value='$id'>
             <input type='hidden' name='update_role_admin' value='$admin_value'>
-            <input class='btn btn-primary' type='submit' value='$admin_value'>
+            <input class='btn btn-primary' type='submit' value='$admin_value' $role_button>
             </form>
             ";
             
@@ -309,7 +316,7 @@ if (isset($_POST['salesreport'])) {
             <p>Employee - $granted</p>
             <input type='hidden' name='user_id' value='$id'>
             <input type='hidden' name='update_role_employee' value='$employee_value'>
-            <input class='btn btn-primary' type='submit' value='$employee_value'>
+            <input class='btn btn-primary' type='submit' value='$employee_value' $role_button>
             </form>
             ";
 
@@ -327,7 +334,7 @@ if (isset($_POST['salesreport'])) {
             <p>Customer - $granted</p>
             <input type='hidden' name='user_id' value='$id'>
             <input type='hidden' name='update_role_customer' value='$customer_value'>
-            <input class='btn btn-primary' type='submit' value='$customer_value'>
+            <input class='btn btn-primary' type='submit' value='$customer_value' $role_button>
             </form>
             ";
 

@@ -2,9 +2,9 @@
 
 $page_roles = array('admin', 'employee', 'customer');
 
-include_once 'check_session.php';
-include_once 'header.html';
-include_once 'dbinfo.php';
+require_once 'check_session.php';
+require_once 'header.html';
+require_once 'dbinfo.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die ($conn->connect_error);

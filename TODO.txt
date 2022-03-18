@@ -1,13 +1,5 @@
 - check for bugs
 
-- add product report
-
-- add role selection to new user
-
-- Users with no money? how to display
-
-- add sanitizing
-
 nh / mysecret
 pjones / password
 bsmith / password

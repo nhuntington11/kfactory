@@ -7,6 +7,7 @@ require_once 'check_session.php';
 require_once 'header.html';
 require_once 'dbinfo.php';
 require_once 'User.php';
+require_once 'sanitize.php';
 
 $conn = new mysqli($hn, $un, $pw, $db);
 if($conn->connect_error) die($conn->connect_error);
@@ -141,15 +142,15 @@ if(isset($_GET['user_id'])) {
 
 if (isset($_POST['update_user'])) {
     $user_id = $_POST['userid'];
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$username = $_POST['username'];
-	$address1 = $_POST['address1'];
-	$address2 = $_POST['address2'];
-	$city = $_POST['city'];
-	$zip = $_POST['zip'];
+	$firstname = sanitize($conn, $_POST['firstname']);
+	$lastname = sanitize($conn, $_POST['lastname']);
+	$username = sanitize($conn, $_POST['username']);
+	$address1 = sanitize($conn, $_POST['address1']);
+	$address2 = sanitize($conn, $_POST['address2']);
+	$city = sanitize($conn, $_POST['city']);
+	$zip = sanitize($conn, $_POST['zip']);
 	$state = $_POST['state'];
-	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$password = sanitize($conn, password_hash($_POST['password'], PASSWORD_DEFAULT));
 	
 	$update_user = "UPDATE users SET firstname='$firstname', lastname='$lastname', username='$username', address1='$address1', address2='$address2', city='$city', state='$state', zip='$zip', password='$password' WHERE user_id = $user_id";
     $result = $conn->query($update_user); 
@@ -168,9 +169,9 @@ if (isset($_POST['update_user'])) {
 
 if (isset($_POST['add_cc'])) {
 	$user_id = $_POST['userid'];
-	$ccnum = $_POST['ccnumber'];
-	$expdate = $_POST['expdate'];
-	$ccv = $_POST['ccv'];
+	$ccnum = sanitize($conn, $_POST['ccnumber']);
+	$expdate = sanitize($conn, $_POST['expdate']);
+	$ccv = sanitize($conn, $_POST['ccv']);
 
 	$cc_query = $conn->query("INSERT INTO cust_payment_type (user_id, cc_num, exp_date, ccv) VALUES ($user_id, '$ccnum', '$expdate', $ccv)");
 	if (!$cc_query) echo "COULD NOT ADD CARD <a href='update-user.php?user_id=$user_id'>try again</a>";

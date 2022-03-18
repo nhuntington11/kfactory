@@ -1,5 +1,7 @@
 <?php
 
+$page_roles = array('admin', 'employee', 'customer');
+
 require_once 'header.html';
 
 echo <<<_BODY
