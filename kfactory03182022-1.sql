@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 18, 2022 at 04:08 PM
+-- Generation Time: Mar 18, 2022 at 04:51 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `cust_payment_type` (
   `ccv` int NOT NULL,
   `amount` float NOT NULL DEFAULT '10000',
   PRIMARY KEY (`payment_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cust_payment_type`
@@ -50,7 +50,7 @@ INSERT INTO `cust_payment_type` (`payment_key`, `user_id`, `cc_num`, `exp_date`,
 (5, 10, 888777111222, '2022-03-21', 98, 9500.01),
 (7, 15, 987234324, '2022-03-30', 123, 9500.01),
 (8, 16, 876123123123, '2022-03-31', 987, 9500.01),
-(9, 17, 9809809811, '2022-03-29', 123, 9400.01),
+(9, 17, 9809809811, '2022-03-29', 123, 10000),
 (11, 7, 9982324098234, '2022-04-08', 145, 10000),
 (12, 21, 91212312312312, '2024-05-23', 723, 9720.01),
 (13, 22, 991123019012312, '2024-05-27', 733, 9400.01);
@@ -85,7 +85,8 @@ INSERT INTO `deactivated_accounts` (`user_id`, `username`, `firstname`, `lastnam
 (20, 'chuntington', 'Cas', 'Huntington', '583 String St', '', 'Salt Lake City', 'UT', '99887', '$2y$10$r36e52L9Vg.ihxp1johbV.auv91RhsjEACiPDyDyejuFBU42RCK.6', ''),
 (16, 'bsmart', 'Ben', 'Smart', '987 W North St', '', 'Salt Lake City', 'UT', '88112', '$2y$10$fNDWEdIR9wpPv321shU.2eyIpCvyS9fZOt6zBO/ZDLrOXjtpl7IM6', ''),
 (17, 'rtill', 'Rex', 'Till', '9999 SE West St', '', 'Salt Lake City', 'UT', '84106', '$2y$10$EoqtNCX3RUmsOH.IiBs.b.8I1J/9zZn3BwCiLmu4cY4l8vuq8xzxa', ''),
-(19, 'ndog', 'Nellie', 'Dog', '583 E Main St', '11', 'Salt Lake City', 'UT', '84111', '$2y$10$utmendNZ/eZ8G5JWG.zVmu4y64GhjR0OTA.DQcTDl6Clm68qby/ra', '');
+(19, 'ndog', 'Nellie', 'Dog', '583 E Main St', '11', 'Salt Lake City', 'UT', '84111', '$2y$10$utmendNZ/eZ8G5JWG.zVmu4y64GhjR0OTA.DQcTDl6Clm68qby/ra', ''),
+(23, 'jdoe', 'Jane', 'Doe', '234 Main St', '5', 'Salt Lake City', 'UT', '87911', '$2y$10$o.SynTxV/HzFbBZOUPzNNuLMCXf9ChKnd/62oYqojv9KknkzmKo9i', '');
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `fulfilled` int NOT NULL,
   `returned` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `orders`
@@ -126,19 +127,20 @@ INSERT INTO `orders` (`order_id`, `user_id`, `purchase_date`, `prod`, `prod_id`,
 (40, 20, '2022-03-18 13:10:17', 'Atomic', 1, 599.99, 1, 0, 1, 0),
 (39, 20, '2022-03-18 13:10:06', 'Kastle', 3, 499.99, 1, 0, 0, 1),
 (38, 7, '2022-03-18 12:59:51', 'DPS', 2, 649.99, 1, 0, 0, 0),
-(37, 17, '2022-03-17 20:06:07', 'Atomic', 1, 599.99, 1, 0, 0, 0),
+(37, 17, '2022-03-17 20:06:07', 'Atomic', 1, 599.99, 1, 0, 0, 1),
 (24, 7, '2022-03-16 22:59:29', 'Atomic', 1, 599.99, 1, 0, 1, 0),
 (25, 7, '2022-03-16 23:09:02', 'DPS', 2, 649.99, 1, 0, 1, 0),
 (36, 16, '2022-03-17 19:52:40', 'Kastle', 3, 499.99, 1, 0, 1, 0),
 (34, 14, '2022-03-17 19:44:51', 'Salomon', 4, 599.99, 1, 0, 1, 0),
-(33, 8, '2022-03-17 19:05:53', 'Kastle', 3, 499.99, 1, 0, 0, 0),
+(33, 8, '2022-03-17 19:05:53', 'Kastle', 3, 499.99, 1, 0, 1, 0),
 (28, 7, '2022-03-17 14:11:18', 'Kastle', 3, 499.99, 1, 0, 1, 0),
 (29, 8, '2022-03-17 14:12:25', 'DPS', 2, 649.99, 1, 0, 1, 1),
 (30, 8, '2022-03-17 14:13:04', 'Atomic', 1, 599.99, 1, 0, 0, 1),
 (31, 8, '2022-03-17 18:33:33', 'DPS', 2, 649.99, 1, 0, 0, 1),
 (42, 22, '2022-03-18 15:41:37', 'Volkl', 5, 279.99, 1, 0, 0, 1),
 (43, 22, '2022-03-18 15:41:44', 'Salomon', 4, 599.99, 1, 0, 1, 0),
-(44, 14, '2022-03-18 15:42:24', 'Kastle', 3, 499.99, 1, 0, 1, 0);
+(44, 14, '2022-03-18 15:42:24', 'Kastle', 3, 499.99, 1, 0, 1, 0),
+(45, 23, '2022-03-18 16:46:46', 'Kastle', 3, 499.99, 1, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -178,7 +180,8 @@ INSERT INTO `payment` (`date`, `order_id`, `user_id`, `payment_id`) VALUES
 ('2022-03-18 08:24:39', 41, 21, 12),
 ('2022-03-18 09:41:37', 42, 22, 13),
 ('2022-03-18 09:41:44', 43, 22, 13),
-('2022-03-18 09:42:24', 44, 14, 6);
+('2022-03-18 09:42:24', 44, 14, 6),
+('2022-03-18 10:46:46', 45, 23, 14);
 
 -- --------------------------------------------------------
 
@@ -205,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_name`, `description`, `type`, `price`, `manufacturing_cost`, `dimensions`, `img_path`, `quantity`) VALUES
-(1, 'Atomic', 'A super light carbon ski that is designed to go fast uphill and down', 'ski', 599.99, 10, 179, 'img/atomic.png', 10),
+(1, 'Atomic', 'A super light carbon ski that is designed to go fast uphill and down', 'ski', 599.99, 10, 179, 'img/atomic.png', 11),
 (2, 'DPS', 'A great all mountain ski for the resort, fun on groomers and fun in powder.', 'ski', 649.99, 15, 179, 'img/dps.png', 13),
 (3, 'Kastle', 'A lightweight short ski, excellent for steep narrow couloirs with the bulletproof Dynafit Speedturn binding', 'ski', 499.99, 20, 169, 'img/kastle.png', 15),
 (4, 'Salomon', 'For those deeper days get on the wider boards. 181mm long and rockered to really enjoy the deep powder.', 'ski', 599.99, 9, 181, 'img/salomon.png', 7),
@@ -231,9 +234,9 @@ CREATE TABLE IF NOT EXISTS `raw_material` (
 --
 
 INSERT INTO `raw_material` (`material_id`, `material_name`, `date_purchased`, `quantity`) VALUES
-(1, 'ptex', '2022-03-07', 156),
-(2, 'steel_edges', '2022-03-18', 85),
-(3, 'plastic', '2022-03-13', 37);
+(1, 'ptex', '2022-03-07', 155),
+(2, 'steel_edges', '2022-03-18', 84),
+(3, 'plastic', '2022-03-13', 36);
 
 -- --------------------------------------------------------
 
@@ -249,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `returns` (
   `quantity` int NOT NULL,
   `return_processed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`return_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `returns`
@@ -266,6 +269,8 @@ INSERT INTO `returns` (`return_id`, `order_id`, `date_returned`, `quantity`, `re
 (8, 23, '2022-03-17 06:48:20', 1, 0),
 (9, 26, '2022-03-17 06:49:47', 1, 0),
 (13, 31, '2022-03-17 12:37:02', 1, 1),
+(22, 45, '2022-03-18 10:46:54', 1, 0),
+(21, 37, '2022-03-18 10:44:03', 1, 1),
 (20, 42, '2022-03-18 09:41:47', 1, 0),
 (19, 39, '2022-03-18 07:10:29', 1, 1);
 
@@ -281,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `user_id` int NOT NULL,
   `role` varchar(10) NOT NULL,
   PRIMARY KEY (`entry_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `roles`
@@ -333,7 +338,8 @@ INSERT INTO `shipping` (`order_id`, `ship_date`, `delivery_date`, `shipping_cost
 (44, '2022-03-18 09:42:42', '2022-03-18 09:42:42', 15, 'UPS'),
 (43, '2022-03-18 09:42:46', '2022-03-18 09:42:46', 15, 'UPS'),
 (40, '2022-03-18 09:42:49', '2022-03-18 09:42:49', 15, 'UPS'),
-(34, '2022-03-18 09:42:55', '2022-03-18 09:42:55', 15, 'UPS');
+(34, '2022-03-18 09:42:55', '2022-03-18 09:42:55', 15, 'UPS'),
+(33, '2022-03-18 10:43:37', '2022-03-18 10:43:37', 15, 'UPS');
 
 -- --------------------------------------------------------
 
@@ -356,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `profile_pic` varchar(100) NOT NULL DEFAULT 'img/smiley.jpg',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
@@ -365,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`user_id`, `username`, `firstname`, `lastname`, `address1`, `address2`, `city`, `state`, `zip`, `password`, `profile_pic`) VALUES
 (6, 'nh', 'Nick', 'Huntington', '123 Main St', '', 'Salt Lake City', 'UT', '84105', '$2y$10$/V6K8dhd1uHXGe.XVMN2LuBe0dBpBtVnp3X4DKsCh1LJHLbkxEBWe', 'img/smiley.jpg'),
 (7, 'pjones', 'Paulina', 'Jones', '456 Main St', '3', 'Salt Lake City', 'UT', '84111', '$2y$10$TMY3zBxiFhwasvu.SOrrTO9zxMl4Tm0vXe39xcRBWvJZCvl1/BfbW', 'img/smiley.jpg'),
-(8, 'bsmith', 'Bill', 'Smith', '765 Main St', '', 'Salt Lake City', 'UT', '85255', '$2y$10$djH9yJu5xI7rQfn/I7yiu.1u3bRpJg3pjtgqWMpWxodg7O119tnD.', 'img/smiley.jpg'),
+(8, 'bsmith', 'Bill', 'Smith', '765 Main St', '', 'Salt Lake City', 'UT', '85255', '$2y$10$QLW.rQPpOZzvbyxqnt36nOGWuj.CF4Rer/HYbIJaoDnz.5lkqc4H.', 'img/smiley.jpg'),
 (18, 'jkennings', 'Jen', 'Kennings', '92323 E West North St', 'Apt 7', 'Salt Lake City', 'UT', '98878', '$2y$10$3oosDbbfhuvvJIyrQekicuj18JbTKXOzCRuXj/GLIa23CpxD0QNL.', 'img/smiley.jpg'),
 (14, 'jdog', 'Jazz', 'Thedog', '456 Main St', '', 'Salt Lake City', 'UT', '84106', '$2y$10$Ci/G9WtgNBrYMJfZkp7CwuF4V3b8frnGUKuyhy1FKwsEPtNBJzPMq', 'img/smiley.jpg'),
 (21, 'mmatthews', 'Mike', 'Matthews', '100011 Lake Drive', '', 'Salt Lake City', 'UT', '81220', '$2y$10$x6O4uj69z.Egbh8zbFa/GOSlAzmdgPPEGNzKn5VHBSItVwob2kx12', 'img/smiley.jpg'),
