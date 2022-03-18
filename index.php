@@ -16,14 +16,14 @@ $user_id = $_SESSION['user']->user_id;
 // Get amount on card for user
 $amount_query = $conn->query("SELECT ROUND(SUM(amount),2) as total_amount FROM cust_payment_type WHERE user_id = $user_id");
 if (!$amount_query) {
-  $amount = "ERROR";
+  $amount = "0.00";
 }
 
-if ($amount_query->num_rows == 0) {
+$row = $amount_query->fetch_array(MYSQLI_ASSOC);
+$amount = $row['total_amount'];
+
+if (is_null($amount)) {
   $amount = 0.00;
-} else {
-  $row = $amount_query->fetch_array(MYSQLI_ASSOC);
-  $amount = $row['total_amount'];
 }
 
 // Navbar options
@@ -69,6 +69,7 @@ echo <<<_NAV
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 _NAV;
 
+// Product display
 $query = "SELECT prod_id, prod_name, description, price, img_path, quantity FROM product";
 
 $result = $conn->query($query);

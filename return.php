@@ -67,10 +67,16 @@ if (isset($_POST['returned'])) {
 	if (!$update_order_query) echo "COULD NOT UPDATE ORDER HISTORY BUT RETURN IS PROCESSED please contact <a href='order-history.php'>customer support</a>";
 
 	// Return money
-	$update_card_query = $conn->query("UPDATE cust_payment_type 
-									   SET amount = amount + $order[total_price] 
-									   WHERE user_id = $order[user_id]");
-	if (!$update_card_query) echo "COULT NOT REFUND MONEY please contact <a href='order-history.php'>customer support</a>";
+	// User deactivated and therefore card removed
+	$user_card = $conn->query("SELECT * FROM cust_payment_type WHERE user_id = $order[user_id]");
+	if (!$user_card) echo "COULD NOT CONNECT TO DB";
+
+	if ($user_card->num_rows != 0) {
+		$update_card_query = $conn->query("UPDATE cust_payment_type 
+										   SET amount = amount + $order[total_price] 
+										   WHERE user_id = $order[user_id]");
+		if (!$update_card_query) echo "COULT NOT REFUND MONEY please contact <a href='order-history.php'>customer support</a>";
+	}
 }
 
 if (isset($_POST['handlereturn'])) {
@@ -101,11 +107,16 @@ if (isset($_POST['handlereturn'])) {
 
 // Get all returns for all customers if employee/admin or just customer if customer
 if (in_array('employee', $user_roles)) {
-	$return_query = $conn->query("SELECT * 
+	$return_query = $conn->query("WITH all_users as (
+									SELECT * FROM users
+									UNION
+								  	SELECT * FROM deactivated_accounts
+								  )
+  								  SELECT * 
 								  FROM returns as r 
 								  INNER JOIN orders as o 
 								  ON r.order_id = o.order_id 
-								  INNER JOIN users as u 
+								  INNER JOIN all_users as u 
 								  ON o.user_id = u.user_id
 								  ORDER BY return_processed, date_returned DESC");
 } else {

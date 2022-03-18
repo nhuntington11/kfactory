@@ -56,11 +56,12 @@ echo <<<_NAV
         </div>
         <div class="col-6">
         <h4>Product Report</h4>
-            <form action="admin.php">
+            <form action="admin.php" method="post">
             <label for="start_date" class="form-label">Start Date</label>
             <input type="date" name="start_date" class="form-control">
             <label for="end_date" class="form-label">Start Date</label>
             <input type="date" name="end_date" class="form-control">
+            <input type="hidden" name="productreport" value="yes">
             <input type="submit" value="Generate Product Report" class="btn btn-primary btn-lg m-2">
             </form>
         </div>
@@ -80,10 +81,53 @@ if (isset($_POST['delete'])) {
 
     $deactivate_query = $conn->query("INSERT INTO deactivated_accounts (user_id, firstname, lastname, username, address1, address2, city, zip, state, password) 
                                       VALUES ($user_id, '$user[firstname]', '$user[lastname]', '$user[username]', '$user[address1]', '$user[address2]', '$user[city]', '$user[zip]', '$user[state]', '$user[password]')");
+    
+    $remove_roles_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id");
+    if (!$remove_roles_query) echo "COULD NOT UPDATE ROLES";
+
+    $remove_payment_query = $conn->query("DELETE FROM cust_payment_type WHERE user_id = $user_id");
+    if (!$remove_payment_query) echo "COULD NOT DELETE PAYMENT CARD";
+
     $delete_query = $conn->query("DELETE FROM users WHERE user_id = $user_id");
     if (!$delete_query) echo "CANNOT DELETE USER <a href='admin.php'>go home</a>";
 
     header('Location: admin.php');
+}
+
+// Update role form - admin
+if (isset($_POST['update_role_admin'])) {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['update_role_admin'];
+
+    if ($action == 'Add') {
+        $add_query = $conn->query("INSERT INTO roles (user_id, role) VALUES ($user_id, 'admin')");
+    } elseif ($action == 'Remove') {
+        $remove_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id AND role = 'admin'");
+    }
+}
+
+// Update role form - employee
+if (isset($_POST['update_role_employee'])) {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['update_role_employee'];
+
+    if ($action == 'Add') {
+        $add_query = $conn->query("INSERT INTO roles (user_id, role) VALUES ($user_id, 'employee')");
+    } elseif ($action == 'Remove') {
+        $remove_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id AND role = 'employee'");
+    }
+}
+
+// Update role form - customer
+if (isset($_POST['update_role_customer'])) {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['update_role_customer'];
+
+    if ($action == 'Add') {
+        $add_query = $conn->query("INSERT INTO roles (user_id, role) VALUES ($user_id, 'customer')");
+    } elseif ($action == 'Remove') {
+        $remove_query = $conn->query("DELETE FROM roles WHERE user_id = $user_id AND role = 'customer'");
+    }
 }
 
 // If report is selected generate report
@@ -102,6 +146,9 @@ if (isset($_POST['salesreport'])) {
 
     echo <<<_REPORT
     <div class="row">
+        <div class="col">
+            <h2>SALES REPORT</h2>
+        </div>
         <div class="col">
             <h4>Start Date: $startdate</h4>
         </div>
@@ -141,9 +188,69 @@ if (isset($_POST['salesreport'])) {
     </div>
     </div>
     _TEND;
+} elseif (isset($_POST['productreport'])) {
+    $startdate = $_POST['start_date'];
+    $enddate = $_POST['end_date'];
+
+    $sales_query = $conn->query("SELECT prod_id, prod, count(*) as total
+                                 FROM orders 
+                                 WHERE purchase_date BETWEEN '$startdate' AND '$enddate' 
+                                 GROUP BY prod_id 
+                                 ORDER BY total DESC");
+    if (!$sales_query) echo "COULD NOT GENERATE SALES REPORT";
+
+    $rows = $sales_query->num_rows;
+
+    echo <<<_REPORT
+    <div class="row">
+        <div class="col">
+            <h2>PRODUCT REPORT</h2>
+        </div>
+        <div class="col">
+            <h2>PRODUCT REPORT</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4>Start Date: $startdate</h4>
+        </div>
+        <div class="col">
+            <h4>End Date: $enddate</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Amount Sold</th>
+                </thead>
+                <tbody>
+    _REPORT;
+
+    for ($i=0; $i<$rows; ++$i) {
+        $sales_query->data_seek($i);
+        $report_row = $sales_query->fetch_array(MYSQLI_ASSOC);
+
+        echo <<<_TBODY
+        <tr>
+            <td>$report_row[prod_id]</td>
+            <td>$report_row[prod]</td>
+            <td>$report_row[total]</td>
+        </tr>
+        _TBODY;
+    }
+
+    echo <<<_TEND
+        </tbody>
+    </table>
+    </div>
+    </div>
+    _TEND; 
 } else {
 // If no report is selected then show all users
-    $query = "SELECT * FROM users as u INNER JOIN roles as r on u.user_id=r.user_id";
+    $query = "SELECT * FROM users";
     $result = $conn->query($query);
 
     if (!$result) echo "ERROR CONNECTING TO DB";
@@ -158,11 +265,71 @@ if (isset($_POST['salesreport'])) {
             $lastname = $user_card['lastname'];
             $id = $user_card['user_id'];
             $profile_pic = "img/smiley.jpg";
-            $role = $user_card['role'];
-            $A=$B=$C='';
-            if($role=='customer') $A = 'selected';
-            if($role=='employee') $B = 'selected';
-            if($role=='admin') $C = 'selected';
+
+            // Get roles
+            $roles_query = $conn->query("SELECT role FROM roles WHERE user_id = $id");
+            if (!$roles_query) echo "COULD NOT GET ROLES";
+            $role_rows = $roles_query->num_rows;
+            $display_roles = array();
+            for ($j=0; $j<$role_rows; ++$j) {
+               $row = $roles_query->data_seek($j);
+               $role = $roles_query->fetch_array(MYSQLI_ASSOC);
+               $display_roles[] = $role['role'];
+            }
+
+            // Admin role form
+            if (in_array('admin', $display_roles)) {
+                $admin_value = 'Remove';
+                $granted = 'yes';
+            } else {
+                $admin_value = 'Add';
+                $granted = 'no';
+            }
+
+            $admin_role = "
+            <form action='admin.php' method='post'>
+            <p>Admin - $granted</p>
+            <input type='hidden' name='user_id' value='$id'>
+            <input type='hidden' name='update_role_admin' value='$admin_value'>
+            <input class='btn btn-primary' type='submit' value='$admin_value'>
+            </form>
+            ";
+            
+            // Employee role form
+            if (in_array('employee', $display_roles)) {
+                $employee_value = 'Remove';
+                $granted = 'yes';
+            } else {
+                $employee_value = 'Add';
+                $granted = 'no';
+            }
+
+            $employee_role = "
+            <form action='admin.php' method='post'>
+            <p>Employee - $granted</p>
+            <input type='hidden' name='user_id' value='$id'>
+            <input type='hidden' name='update_role_employee' value='$employee_value'>
+            <input class='btn btn-primary' type='submit' value='$employee_value'>
+            </form>
+            ";
+
+            // Customer role form
+            if (in_array('customer', $display_roles)) {
+                $customer_value = 'Remove';
+                $granted = 'yes';
+            } else {
+                $customer_value = 'Add';
+                $granted = 'no';
+            }
+
+            $customer_role = "
+            <form action='admin.php' method='post'>
+            <p>Customer - $granted</p>
+            <input type='hidden' name='user_id' value='$id'>
+            <input type='hidden' name='update_role_customer' value='$customer_value'>
+            <input class='btn btn-primary' type='submit' value='$customer_value'>
+            </form>
+            ";
 
             // Only show delete for admin employees
             if (in_array('admin', $user_roles)) {
@@ -179,19 +346,8 @@ if (isset($_POST['salesreport'])) {
             } else {
                 $delete_user = "";
             }
-			if(isset($_POST['update'])){
-                    
-                    $role = $_POST['role'];
-                    
-                    $query = "Update roles set role='$role' where user_id = $id";
-                    
-                    $result = $conn->query($query); 
-                    if(!$result) die($conn->error);
-                    
-                    header("Location: admin.php"); 
-                }
+
             echo <<<_USER
-            <form action="admin.php" method="post">
                 <div class="row m-2 mb-4 border border-primary">
                     <div class="col-md-3">
                         <img src="$profile_pic" alt="profile_pic.png" width="200px" height="200px">
@@ -213,25 +369,17 @@ if (isset($_POST['salesreport'])) {
                                 <input type="text" class="form-control" name="idnumber" value="$id" readonly>
                             </div>
                             <div class="col">
-                                <label for="role">Role</label>
-                                <select class="form-control" name="role">
-                                    <option value="customer" $A>Customer</option>
-                                    <option value="employee" $B>Employee</option>
-                                    <option value="admin" $C>Admininstrator</option>
-                                </select>
+                                $admin_role
                             </div>
-                        </div>
-                    </div></form>
-                    <div class="col-md-3">
-                        <div class="row m-2">
                             <div class="col">
-                                <form action='admin.php' method='post'>
-                                <input type='hidden' name='update' value='yes'>
-                                <input type='hidden' name='role' value='$user_card[role]'>
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Update Roles">
-                                </form>
+                                $employee_role
+                            </div>
+                            <div class="col">
+                                $customer_role
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">
                         <form action="update-user.php?user_id=$id" method="post">
                             <div class="row m-2">
                                 <div class="col">

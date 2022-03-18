@@ -59,7 +59,7 @@ if (isset($_GET['orderid'])) {
 	$fulfilled = $order['fulfilled'];
 	$returned = $order['returned'];
 
-	$get_user = "SELECT * FROM users WHERE user_id = $user_id";
+	$get_user = "SELECT * FROM users WHERE user_id = $user_id UNION SELECT * FROM deactivated_accounts WHERE user_id = $user_id";
 
 	$user_result = $conn->query($get_user);
 	if (!$user_result) echo "NO USER OF USERID $user_id";

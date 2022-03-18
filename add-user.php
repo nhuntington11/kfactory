@@ -26,17 +26,31 @@ if (isset($_POST['username'])) {
 	// Checking for duplicate usernames, if duplicate, not allowed
 	$check_duplicates = "SELECT username 
 						 FROM users 
+						 WHERE username = '$username'
+						 UNION
+						 SELECT username
+						 FROM deactivated_accounts
 						 WHERE username = '$username'";
 	$username_duplicates = mysqli_query($conn, $check_duplicates);
 
 	$count = mysqli_num_rows($username_duplicates);
 	if($count > 0 ){
-		echo "<h1>Username is already registered, please use <a href='add-user.php'>different one</a></h2>";
+		echo "<h2>That username is already taken, please use <a href='add-user.php'>different one</a></h2>";
 		return false;
 	}
 
 	$result_add_user = $conn->query($add_user);
 	if (!$result_add_user) echo "ERROR2";
+
+	// Add default role 'customer'
+	$new_user_id = $conn->query("SELECT user_id FROM users WHERE username = '$username'");
+	if (!$new_user_id) echo "COULD NOT FETCH NEW USER ID";
+
+	$user_id = $new_user_id->fetch_array(MYSQLI_ASSOC)['user_id'];
+
+	$add_role_query = $conn->query("INSERT INTO roles (user_id, role)
+									VALUES ($user_id, 'customer')");
+	if (!$add_role_query) echo "COULD NOT UPDATE ROLE";
 
 }
 
